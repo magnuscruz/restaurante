@@ -82,29 +82,29 @@ public class Sistema extends JFrame {
 		sul.setLayout(new BorderLayout());
 		login.add(sul, BorderLayout.SOUTH);
 
-		JPanel n1 = new JPanel();
-		n1.setLayout(new FlowLayout());
-		JPanel c1 = new JPanel();
-		c1.setLayout(new GridLayout(2,2));
-		JPanel c2 = new JPanel();
-		c2.setLayout(new FlowLayout());
-		JPanel s1 = new JPanel();
-		s1.setLayout(new BorderLayout());
+		JPanel norteTitulo = new JPanel();
+		norteTitulo.setLayout(new FlowLayout());
+		JPanel centroForm = new JPanel();
+		centroForm.setLayout(new GridLayout(2,2));
+		JPanel centroBotao = new JPanel();
+		centroBotao.setLayout(new FlowLayout());
+		JPanel sulLinks = new JPanel();
+		sulLinks.setLayout(new BorderLayout());
 		
-		norte.add(n1, BorderLayout.CENTER);
-		centro.add(c1, BorderLayout.NORTH);
-		centro.add(c2, BorderLayout.SOUTH);
-		sul.add(s1);
+		norte.add(norteTitulo, BorderLayout.CENTER);
+		centro.add(centroForm, BorderLayout.NORTH);
+		centro.add(centroBotao, BorderLayout.SOUTH);
+		sul.add(sulLinks);
 
 		norte.add(linguaBotao, BorderLayout.EAST);
-		n1.add(tituloLabel);
-		c1.add(usernameLabel);
-		c1.add(usernameText);
-		c1.add(passwordLabel);
-		c1.add(passwordText);
-		c2.add(loginBotao);
-		s1.add(clienteBotao, BorderLayout.EAST);
-		s1.add(restauranteBotao, BorderLayout.WEST);
+		norteTitulo.add(tituloLabel);
+		centroForm.add(usernameLabel);
+		centroForm.add(usernameText);
+		centroForm.add(passwordLabel);
+		centroForm.add(passwordText);
+		centroBotao.add(loginBotao);
+		sulLinks.add(clienteBotao, BorderLayout.EAST);
+		sulLinks.add(restauranteBotao, BorderLayout.WEST);
 		
 		clienteBotao.addActionListener(a -> {
 			CardLayout cl = (CardLayout) contentor.getLayout();
