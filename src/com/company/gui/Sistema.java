@@ -20,6 +20,9 @@ import com.company.Comentario;
 import com.company.Utilizador;
 
 public class Sistema extends JFrame {
+	private static final String RESTAURANTE_CARD = "RESTAURANTE";
+	private static final String CLIENTE_CARD = "CLIENTE";
+	private static final String LOGIN_CARD = "LOGIN";
 	private List<Utilizador> listaUtilizadores = new ArrayList<>();
 	private List<Comentario> listaComentarios = new ArrayList<>();
 
@@ -27,13 +30,12 @@ public class Sistema extends JFrame {
 	private Utilizador utilizador;
 
 	public Sistema() {
-		Sistema janela = this;
 		ImageIcon logo = new ImageIcon("logo3.png");
-		janela.setIconImage(logo.getImage());
-		janela.setTitle("APP");
-		janela.setSize(400, 150);
-		janela.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		Container contentor = janela.getContentPane();
+		this.setIconImage(logo.getImage());
+		this.setTitle("APP");
+		this.setSize(400, 150);
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		Container contentor = this.getContentPane();
 		contentor.setLayout(new CardLayout());
 
 		/////// SUPERPAINEIS////////
@@ -43,14 +45,28 @@ public class Sistema extends JFrame {
 		registoCliente.setLayout(new BorderLayout());
 		JPanel registoRestaurante = new JPanel();
 		registoRestaurante.setLayout(new BorderLayout());
+		
+		construirPainelLogin(this, contentor, login);
 
+		construirPainelCliente(registoCliente);
+
+		contentor.add(login, LOGIN_CARD);
+		contentor.add(registoCliente, CLIENTE_CARD);
+		contentor.add(registoRestaurante, RESTAURANTE_CARD);
+
+		this.setVisible(true);
+
+	}
+
+	private void construirPainelLogin(Sistema janela, Container contentor, JPanel login) {
 		JPanel norte = new JPanel();
 		JPanel centro = new JPanel();
 		JPanel sul = new JPanel();
 
-		JButton linguaBotao = new JButton("PT EN");
+		JLabel tituloLabel = new JLabel("LOGIN");
+		JButton linguaBotao = new JButton("PT/EN");
 		linguaBotao.setSize(15, 5);
-		JButton loginBotao = new JButton("LOGIN");
+		JButton loginBotao = new JButton(LOGIN_CARD);
 		loginBotao.setSize(15, 5);
 		JButton clienteBotao = new JLinkButton("Novo Cliente");
 		JButton restauranteBotao = new JLinkButton("Novo Restaurante");
@@ -75,12 +91,13 @@ public class Sistema extends JFrame {
 		JPanel s1 = new JPanel();
 		s1.setLayout(new BorderLayout());
 		
-		norte.add(n1);
+		norte.add(n1, BorderLayout.CENTER);
 		centro.add(c1, BorderLayout.NORTH);
 		centro.add(c2, BorderLayout.SOUTH);
 		sul.add(s1);
-		
-		n1.add(linguaBotao);
+
+		norte.add(linguaBotao, BorderLayout.EAST);
+		n1.add(tituloLabel);
 		c1.add(usernameLabel);
 		c1.add(usernameText);
 		c1.add(passwordLabel);
@@ -88,26 +105,24 @@ public class Sistema extends JFrame {
 		c2.add(loginBotao);
 		s1.add(clienteBotao, BorderLayout.EAST);
 		s1.add(restauranteBotao, BorderLayout.WEST);
-
-		contentor.add(login);
-		contentor.add(registoCliente);
-		contentor.add(registoRestaurante);
-
+		
 		clienteBotao.addActionListener(a -> {
-				CardLayout cl = (CardLayout) contentor.getLayout();
-				cl.next(contentor);// passar por parâmetro no construtor (fica como referência pq qdo precisarmos
-									// no actionlistener)
+			CardLayout cl = (CardLayout) contentor.getLayout();
+			cl.show(contentor, CLIENTE_CARD);
+			janela.setSize(500, 300);
+			// passar por parâmetro no construtor (fica como referência pq qdo precisarmos
+			// no actionlistener)
 		});
+	}
 
-		// cl.next(c); // controlar por meio de um botão
-
+	private void construirPainelCliente(JPanel registoCliente) {
 		////////////////////REGISTO CLIENTE/////////////////////////
+		
 		JPanel norte1 = new JPanel();
+		norte1.setLayout(new BorderLayout());
 		JPanel centro1 = new JPanel();
 		JPanel sul1 = new JPanel();
-
-		JButton lingua_botao1 = new JButton("PT/EN");
-
+		JButton linguaBotao = new JButton("PT/EN");
 		JLabel registarCliente_label = new JLabel("Registar Cliente");
 
 		JLabel nome_label = new JLabel("Nome");
@@ -132,8 +147,11 @@ public class Sistema extends JFrame {
 		registoCliente.add(centro1, "Center");
 		registoCliente.add(sul1, "South");
 
-		norte1.add(registarCliente_label);
-		norte1.add(linguaBotao);
+		JPanel n1 = new JPanel();
+		n1.setLayout(new FlowLayout());
+		n1.add(registarCliente_label);
+		norte1.add(n1, BorderLayout.CENTER);
+		norte1.add(linguaBotao, BorderLayout.EAST);
 
 		JPanel c11 = new JPanel();
 		c11.setLayout(new GridLayout(7, 2));
@@ -159,9 +177,6 @@ public class Sistema extends JFrame {
 		sul1.add(cancelar_botao);
 		sul1.add(registar_botao1);
 		////// MENU CLIENTE//////////
-
-		janela.setVisible(true);
-
 	}
 
 	public void utilizadorExiste(String username) {
