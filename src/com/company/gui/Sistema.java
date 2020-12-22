@@ -32,8 +32,8 @@ public class Sistema extends JFrame {
 	public Sistema() {
 		ImageIcon logo = new ImageIcon("logo3.png");
 		this.setIconImage(logo.getImage());
-		this.setTitle("APP");
-		this.setSize(400, 150);
+		this.setTitle("RESERVAS DE RESTAURANTES");
+		this.setSize(400, 180);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		Container contentor = this.getContentPane();
 		contentor.setLayout(new CardLayout());
@@ -123,7 +123,7 @@ public class Sistema extends JFrame {
 		JPanel centro1 = new JPanel();
 		JPanel sul1 = new JPanel();
 		JButton linguaBotao = new JButton("PT/EN");
-		JLabel registarCliente_label = new JLabel("Registar Cliente");
+		JLabel registarCliente_label = new JLabel("NOVO CLIENTE");
 
 		JLabel nome_label = new JLabel("Nome");
 		JTextField nome_text1 = new JTextField(20);
