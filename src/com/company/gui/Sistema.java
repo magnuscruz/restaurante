@@ -48,7 +48,7 @@ public class Sistema extends JFrame {
 		JPanel centro = new JPanel();
 		JPanel sul = new JPanel();
 
-		JButton linguaBotao = new JButton("PT - EN");
+		JButton linguaBotao = new JButton("PT EN");
 		linguaBotao.setSize(15, 5);
 		JButton loginBotao = new JButton("LOGIN");
 		loginBotao.setSize(15, 5);
@@ -66,21 +66,21 @@ public class Sistema extends JFrame {
 		sul.setLayout(new BorderLayout());
 		login.add(sul, BorderLayout.SOUTH);
 
-
+		JPanel n1 = new JPanel();
+		n1.setLayout(new FlowLayout());
 		JPanel c1 = new JPanel();
-		c1.setLayout(new GridLayout(3,2));
+		c1.setLayout(new GridLayout(2,2));
 		JPanel c2 = new JPanel();
 		c2.setLayout(new FlowLayout());
 		JPanel s1 = new JPanel();
 		s1.setLayout(new BorderLayout());
 		
-		norte.add(linguaBotao, BorderLayout.CENTER);
-		centro.add(norte, BorderLayout.NORTH);
-		centro.add(c1, BorderLayout.CENTER);
+		norte.add(n1);
+		centro.add(c1, BorderLayout.NORTH);
 		centro.add(c2, BorderLayout.SOUTH);
-		
 		sul.add(s1);
 		
+		n1.add(linguaBotao);
 		c1.add(usernameLabel);
 		c1.add(usernameText);
 		c1.add(passwordLabel);
