@@ -5,11 +5,10 @@ import java.awt.CardLayout;
 import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -28,29 +27,29 @@ public class Sistema extends JFrame {
 	private Utilizador utilizador;
 
 	public Sistema() {
-		JFrame janela = new JFrame();	
+		Sistema janela = this;
+		ImageIcon logo = new ImageIcon("logo3.png");
+		janela.setIconImage(logo.getImage());
 		janela.setTitle("APP");
 		janela.setSize(400, 150);
-		janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		janela.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		Container contentor = janela.getContentPane();
 		contentor.setLayout(new CardLayout());
 
 		/////// SUPERPAINEIS////////
 		JPanel login = new JPanel();
 		login.setLayout(new BorderLayout());
-		// contentor.add(login);
 		JPanel registoCliente = new JPanel();
 		registoCliente.setLayout(new BorderLayout());
-		// contentor.add(registoCliente);
 		JPanel registoRestaurante = new JPanel();
 		registoRestaurante.setLayout(new BorderLayout());
-		// contentor.add(registoRestaurante);
 
 		JPanel norte = new JPanel();
 		JPanel centro = new JPanel();
 		JPanel sul = new JPanel();
 
 		JButton linguaBotao = new JButton("PT - EN");
+		linguaBotao.setSize(15, 5);
 		JButton loginBotao = new JButton("LOGIN");
 		loginBotao.setSize(15, 5);
 		JButton clienteBotao = new JLinkButton("Novo Cliente");
@@ -60,14 +59,14 @@ public class Sistema extends JFrame {
 		JTextField usernameText = new JTextField(20);
 		JLabel passwordLabel = new JLabel("Password:");
 		JPasswordField passwordText = new JPasswordField(20);
+		norte.setLayout(new BorderLayout());
+		login.add(norte, BorderLayout.NORTH);
 		centro.setLayout(new BorderLayout());
 		login.add(centro, BorderLayout.CENTER);
 		sul.setLayout(new BorderLayout());
 		login.add(sul, BorderLayout.SOUTH);
 
 
-		norte.setLayout(new GridLayout());
-		norte.add(linguaBotao);
 		JPanel c1 = new JPanel();
 		c1.setLayout(new GridLayout(3,2));
 		JPanel c2 = new JPanel();
@@ -75,6 +74,7 @@ public class Sistema extends JFrame {
 		JPanel s1 = new JPanel();
 		s1.setLayout(new BorderLayout());
 		
+		norte.add(linguaBotao, BorderLayout.CENTER);
 		centro.add(norte, BorderLayout.NORTH);
 		centro.add(c1, BorderLayout.CENTER);
 		centro.add(c2, BorderLayout.SOUTH);
@@ -89,18 +89,14 @@ public class Sistema extends JFrame {
 		s1.add(clienteBotao, BorderLayout.EAST);
 		s1.add(restauranteBotao, BorderLayout.WEST);
 
-
 		contentor.add(login);
 		contentor.add(registoCliente);
 		contentor.add(registoRestaurante);
 
-		clienteBotao.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
+		clienteBotao.addActionListener(a -> {
 				CardLayout cl = (CardLayout) contentor.getLayout();
 				cl.next(contentor);// passar por parâmetro no construtor (fica como referência pq qdo precisarmos
 									// no actionlistener)
-			}
 		});
 
 		// cl.next(c); // controlar por meio de um botão
@@ -174,7 +170,6 @@ public class Sistema extends JFrame {
 			if (username.equalsIgnoreCase(listaUtilizadores.get(i).getUsername())) {
 				String nomeClasse = listaUtilizadores.get(i).getClass().getSimpleName();//// Imprime o nome da Classe.
 																						//// Tem é de se associar a uma
-																						//// variavel
 				System.out.println("Utilizador com o username: " + listaUtilizadores.get(i).getUsername()
 						+ " é do tipo: " + nomeClasse);
 				a = false;
@@ -184,5 +179,4 @@ public class Sistema extends JFrame {
 			System.out.println("Nao existe");
 		}
 	}
-
 }
