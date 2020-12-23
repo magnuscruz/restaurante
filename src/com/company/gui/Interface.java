@@ -18,6 +18,7 @@ public class Interface extends JFrame {
     private static final String RESTAURANT_CARD = "RESTAURANTE";
     private static final String CUSTOMER_CARD = "CLIENTE";
     private static final String LOGIN_CARD = "LOGIN";
+    private static final String MENUCUSTOMER_CARD = "MENU CLIENTE";
 //	private List<Utilizador> listaUtilizadores = new ArrayList<>();
 //	private List<Comentario> listaComentarios = new ArrayList<>();
 //
@@ -40,6 +41,8 @@ public class Interface extends JFrame {
         registerNewCustomerSuperpanel.setLayout(new BorderLayout());
         JPanel registerNewRestaurantSuperpanel = new JPanel();
         registerNewRestaurantSuperpanel.setLayout(new BorderLayout());
+        JPanel menuCustomer = new JPanel();
+        menuCustomer.setLayout(new BorderLayout());
 
         construirPanelLogin(this, contentor, loginSuperPanel);
 
@@ -47,12 +50,13 @@ public class Interface extends JFrame {
 
         construirPanelRestaurant(this, contentor, loginSuperPanel, registerNewRestaurantSuperpanel);
 
-        //construirPanelMenuRestaurant(this, contentor, loginSuperPanel, menuRestaurant);
+        construirPanelMenuCustomer(this, contentor, loginSuperPanel, menuCustomer);
 
 
-            contentor.add(loginSuperPanel, LOGIN_CARD);
+        contentor.add(loginSuperPanel, LOGIN_CARD);
         contentor.add(registerNewCustomerSuperpanel, CUSTOMER_CARD);
         contentor.add(registerNewRestaurantSuperpanel, RESTAURANT_CARD);
+        contentor.add(menuCustomer, MENUCUSTOMER_CARD);
 
         this.setVisible(true);
 
@@ -125,9 +129,9 @@ public class Interface extends JFrame {
         });
     }
 
+    ////////////////////NOVO CLIENTE/////////////////////////
     private void construirPanelCustomer(Interface janela, Container contentor, JPanel loginSuperPanel, JPanel registerNewCustomerSuperpanel) {
 
-        ////////////////////REGISTO CLIENTE/////////////////////////
 
         /////SUBPAINEIS//////
         JPanel northNewCustomerSubPanel = new JPanel();
@@ -188,7 +192,7 @@ public class Interface extends JFrame {
         southNewCustomerSubPanel.setLayout(new FlowLayout());
         southNewCustomerSubPanel.add(cancelCustomerButton);
         southNewCustomerSubPanel.add(registerCustomerButton);
-        ////// MENU CLIENTE//////////
+
 
         registerCustomerButton.addActionListener(a -> {
             CardLayout cl = (CardLayout) contentor.getLayout();
@@ -205,7 +209,7 @@ public class Interface extends JFrame {
         });
     }
 
-//	public void utilizadorExiste(String username) {
+    //	public void utilizadorExiste(String username) {
 //		boolean a = true;
 //		for (int i = 0; i < listaUtilizadores.size(); i++) {
 //			if (username.equalsIgnoreCase(listaUtilizadores.get(i).getUsername())) {
@@ -220,10 +224,76 @@ public class Interface extends JFrame {
 //			System.out.println("Nao existe");
 //		}
 //	}
+    ////// MENU CLIENTE//////////
+    private void construirPanelMenuCustomer(Interface janela, Container contentor, JPanel loginSuperPanel, JPanel menuCustomer) {
+
+        /////SUBPAINEIS//////
+        JPanel northMenuCustomerSubPanel = new JPanel();
+        northMenuCustomerSubPanel.setLayout(new BorderLayout());
+        JPanel centerMenuCustomerSubPanel = new JPanel();
+        JPanel southMenuCustomerSubPanel = new JPanel();
+
+        JLabel registerNewCustomerLabel = new JLabel("MENU CUSTOMERE");
+
+        JButton ptEnMenuCustomerButton = new JButton("PT/EN");
+        ////
+        JButton adicionarPrato = new JButton("ADICIONAR PRATO");
+        JButton atualizarPratoDia = new JButton("ATUALIZAR PRATO DO DIA");
+        JButton atualizarDados = new JButton("ATUALIZAR DADOS");
+        JButton reservas = new JButton("RESERVAS");
+        JButton consultarComentarios = new JButton("CONSULTAR COMENTÁRIOS");
+        JButton responderComentarios = new JButton("RESPONDER COMENTÁRIOS");
+        JButton pontuacaoMedia = new JButton("PONTUAÇÃO MÉDIA");
 
 
+        ///
+        //JButton cancelMenuCustomerButton = new JButton("CANCELAR");
+        JButton exitMenuCustomerButton = new JButton("SAIR");
+
+        menuCustomer.add(northMenuCustomerSubPanel, "North");
+        menuCustomer.add(centerMenuCustomerSubPanel, "Center");
+        menuCustomer.add(southMenuCustomerSubPanel, "South");
+
+        JPanel northCustomerSubPanel = new JPanel();
+        northCustomerSubPanel.setLayout(new FlowLayout());
+        northCustomerSubPanel.add(registerNewCustomerLabel);
+        northMenuCustomerSubPanel.add(northCustomerSubPanel, BorderLayout.CENTER);
+        northMenuCustomerSubPanel.add(ptEnMenuCustomerButton, BorderLayout.EAST);
+
+        JPanel centerNewCustomerSSPanelForm = new JPanel();
+        centerNewCustomerSSPanelForm.setLayout(new GridLayout(7, 1));
+        centerMenuCustomerSubPanel.add(centerNewCustomerSSPanelForm);
+        centerNewCustomerSSPanelForm.add(adicionarPrato);
+        centerNewCustomerSSPanelForm.add(atualizarPratoDia);
+        centerNewCustomerSSPanelForm.add(atualizarDados);
+        centerNewCustomerSSPanelForm.add(reservas);
+        centerNewCustomerSSPanelForm.add(consultarComentarios);
+        centerNewCustomerSSPanelForm.add(responderComentarios);
+        centerNewCustomerSSPanelForm.add(pontuacaoMedia);
+
+        southMenuCustomerSubPanel.setLayout(new FlowLayout());
+        //southMenuCustomerSubPanel.add(cancelMenuCustomerButton);
+        southMenuCustomerSubPanel.add(exitMenuCustomerButton);
+
+//        cancelMenuCustomerButton.addActionListener(a -> {
+//            CardLayout cl = (CardLayout) contentor.getLayout();
+//            cl.show(contentor, CUSTOMER_CARD);
+//            this.setSize(500, 300);
+//
+//        });
+
+        exitMenuCustomerButton.addActionListener(a -> {
+            CardLayout cl = (CardLayout) contentor.getLayout();
+            cl.show(contentor, MENUCUSTOMER_CARD);
+            this.setSize(500, 300);
+
+        });
+    }
+
+
+    ////////////////////NOVO RESTAURANTE/////////////////////////
     private void construirPanelRestaurant(Interface janela, Container contentor, JPanel loginSuperPanel, JPanel registerNewRestaurantSuperpanel) {
-        ////////////////////REGISTO RESTAURANTE/////////////////////////
+
 
         /////SUBPAINEIS//////
         JPanel northNewRestaurantSubPanel = new JPanel();
@@ -335,7 +405,9 @@ public class Interface extends JFrame {
             // no actionlistener)
         });
     }
-    private void construirPanelMenuRestaurant(Interface janela, Container contentor, JPanel loginSuperPanel, JPanel menuRestaurant) {
+
+    //////MENU RESTAURANTE////////
+    private void construirPanelMenuCustomer(Interface janela, Container contentor, JPanel loginSuperPanel, JPanel menuRestaurant) {
 
         /////SUBPAINEIS//////
         JPanel northMenuRestaurantSubPanel = new JPanel();
@@ -347,7 +419,7 @@ public class Interface extends JFrame {
 
         JButton ptEnMenuRestaurantButton = new JButton("PT/EN");
         ////
-        JButton adicionarPrato = new JButton("CRIAR EMENTA");
+        JButton adicionarPrato = new JButton("ADICIONAR PRATO");
         JButton atualizarPratoDia = new JButton("ATUALIZAR PRATO DO DIA");
         JButton atualizarDados = new JButton("ATUALIZAR DADOS");
         JButton reservas = new JButton("RESERVAS");
@@ -357,8 +429,8 @@ public class Interface extends JFrame {
 
 
         ///
-        JButton cancelMenuRestaurantButton = new JButton("CANCELAR");
-        JButton registerMenuRestaurantButton = new JButton("REGISTAR");
+        //JButton cancelMenuRestaurantButton = new JButton("CANCELAR");
+        JButton exitMenuRestaurantButton = new JButton("SAIR");
 
         menuRestaurant.add(northMenuRestaurantSubPanel, "North");
         menuRestaurant.add(centerMenuRestaurantSubPanel, "Center");
@@ -382,17 +454,17 @@ public class Interface extends JFrame {
         centerNewRestaurantSSPanelForm.add(pontuacaoMedia);
 
         southMenuRestaurantSubPanel.setLayout(new FlowLayout());
-        southMenuRestaurantSubPanel.add(cancelMenuRestaurantButton);
-        southMenuRestaurantSubPanel.add(registerMenuRestaurantButton);
+        //southMenuRestaurantSubPanel.add(cancelMenuRestaurantButton);
+        southMenuRestaurantSubPanel.add(exitMenuRestaurantButton);
 
-        cancelMenuRestaurantButton.addActionListener(a -> {
-            CardLayout cl = (CardLayout) contentor.getLayout();
-            cl.show(contentor, RESTAURANT_CARD);
-            this.setSize(500, 300);
+//        cancelMenuRestaurantButton.addActionListener(a -> {
+//            CardLayout cl = (CardLayout) contentor.getLayout();
+//            cl.show(contentor, RESTAURANT_CARD);
+//            this.setSize(500, 300);
+//
+//        });
 
-        });
-
-        registerMenuRestaurantButton.addActionListener(a -> {
+        exitMenuRestaurantButton.addActionListener(a -> {
             CardLayout cl = (CardLayout) contentor.getLayout();
             cl.show(contentor, RESTAURANT_CARD);
             this.setSize(500, 300);
