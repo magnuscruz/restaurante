@@ -1,18 +1,8 @@
 package com.company.gui;
 
-import java.awt.BorderLayout;
-import java.awt.CardLayout;
-import java.awt.Container;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
+import java.awt.*;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 public class Interface extends JFrame {
     private static final String RESTAURANTE_CARD = "RESTAURANTE";
@@ -20,18 +10,27 @@ public class Interface extends JFrame {
     private static final String LOGIN_CARD = "LOGIN";
     private static final String MENUCLIENTE_CARD = "MENU CLIENTE";
     private static final String MENURESTAURANTE_CARD = "MENU RESTAURANTE";
+    private static final String MRESTADICIONARPRATO_CARD = "ADICIONAR PRATO";
+    private static final String MRESTATUALIZARPRATO_CARD = "ATUALIZAR PRATO";
+    private static final String MRESTATUALIZARDADOS_CARD = "ATUALIZAR DADOS";
+    private static final String MRESTRESERVSUPERPANEL_CARD = "RESERVAS";
+    private static final int LARGURA_LOGIN = 400;
+    private static final int ALTURA_LOGIN = 180;
+    private static final int LARGURA_PADRAO = 500;
+    private static final int ALTURA_PADRAO = 300;
 
-//	private List<Utilizador> listaUtilizadores = new ArrayList<>();
-//	private List<Comentario> listaComentarios = new ArrayList<>();
+
+// private List<Utilizador> listaUtilizadores = new ArrayList<>();
+// private List<Comentario> listaComentarios = new ArrayList<>();
 //
-//	private Utilizador utilizarAtivo;
-//	private Utilizador utilizador;
+// private Utilizador utilizarAtivo;
+// private Utilizador utilizador;
 
     public Interface() {
         ImageIcon logo = new ImageIcon("logo3.png");
         this.setIconImage(logo.getImage());
         this.setTitle("RESERVAS DE RESTAURANTES");
-        this.setSize(400, 180);
+        this.setSize(LARGURA_LOGIN, ALTURA_LOGIN);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         Container contentor = this.getContentPane();
         contentor.setLayout(new CardLayout());
@@ -41,33 +40,53 @@ public class Interface extends JFrame {
         loginSuperPanel.setLayout(new BorderLayout());
         JPanel registarNovoClienteSuperPanel = new JPanel();
         registarNovoClienteSuperPanel.setLayout(new BorderLayout());
-        JPanel registarNovoRestauranteSuperPanel = new JPanel();
-        registarNovoRestauranteSuperPanel.setLayout(new BorderLayout());
+        JPanel registarNovoRestSuperPanel = new JPanel();
+        registarNovoRestSuperPanel.setLayout(new BorderLayout());
         JPanel menuClienteSuperPanel = new JPanel();
         menuClienteSuperPanel.setLayout(new BorderLayout());
-        JPanel menuRestauranteSuperPanel = new JPanel();
-        menuRestauranteSuperPanel.setLayout(new BorderLayout());
+        JPanel mRestSuperPanel = new JPanel();
+        mRestSuperPanel.setLayout(new BorderLayout());
+        JPanel mRestAdPratoSuperPanel = new JPanel();
+        mRestAdPratoSuperPanel.setLayout(new BorderLayout());
+        JPanel mRestAtPratoDiaSuperPanel = new JPanel();
+        mRestAtPratoDiaSuperPanel.setLayout(new BorderLayout());
+        JPanel mRestAtDadosSuperPanel = new JPanel();
+        mRestAtDadosSuperPanel.setLayout(new BorderLayout());
+        JPanel mRestReservasSuperPanel = new JPanel();
+        mRestReservasSuperPanel.setLayout(new BorderLayout());
 
         construirPanelLogin(this, contentor, loginSuperPanel);
 
         construirPanelCliente(this, contentor, loginSuperPanel, registarNovoClienteSuperPanel);
 
-        construirPanelRestaurante(this, contentor, loginSuperPanel, registarNovoRestauranteSuperPanel);
+        construirPanelRestaurante(this, contentor, loginSuperPanel, registarNovoRestSuperPanel);
 
         construirPanelMenuCliente(this, contentor, loginSuperPanel, menuClienteSuperPanel);
 
-        construirPanelMenuCliente(this, contentor, loginSuperPanel, menuRestauranteSuperPanel);
+        ////PROBLEMA - não aceita this
+        construirPanelMRest(contentor, loginSuperPanel, mRestSuperPanel);
 
+        construirPanelMRestAdPrato(this, contentor, loginSuperPanel, mRestAdPratoSuperPanel);
+
+        construirPanelMRestAtPratoDia(this, contentor, loginSuperPanel, mRestAtPratoDiaSuperPanel);
+
+        construirPanelMRestAtDados (this, contentor, loginSuperPanel, mRestAtDadosSuperPanel);
+
+        construirPanelMRestReservas (this, contentor, loginSuperPanel, mRestReservasSuperPanel);
 
         contentor.add(loginSuperPanel, LOGIN_CARD);
         contentor.add(registarNovoClienteSuperPanel, CLIENTE_CARD);
-        contentor.add(registarNovoRestauranteSuperPanel, RESTAURANTE_CARD);
+        contentor.add(registarNovoRestSuperPanel, RESTAURANTE_CARD);
         contentor.add(menuClienteSuperPanel, MENUCLIENTE_CARD);
-        contentor.add(menuRestauranteSuperPanel, MENURESTAURANTE_CARD);
+        contentor.add(mRestSuperPanel, MENURESTAURANTE_CARD);
+        contentor.add(mRestAdPratoSuperPanel, MRESTADICIONARPRATO_CARD);
+        contentor.add(mRestAtPratoDiaSuperPanel, MRESTATUALIZARPRATO_CARD);
+        contentor.add(mRestAtDadosSuperPanel, MRESTATUALIZARDADOS_CARD);
+        contentor.add(mRestReservasSuperPanel, MRESTRESERVSUPERPANEL_CARD);
 
-        this.setVisible(true);
 
     }
+
 
     private void construirPanelLogin(Interface janela, Container contentor, JPanel loginSuperPanel) {
         ////Criação dos subpaineis norte, centro e sul
@@ -128,11 +147,10 @@ public class Interface extends JFrame {
         sulLoginSSPanelLinks.add(restauranteNovoButton, BorderLayout.WEST);
 
 
-
         clienteNovoButton.addActionListener(a -> {
             CardLayout cl = (CardLayout) contentor.getLayout();
             cl.show(contentor, CLIENTE_CARD);
-            janela.setSize(500, 300);
+            janela.setSize(LARGURA_PADRAO, ALTURA_PADRAO);
             // passar por parâmetro no construtor (fica como referência pq qdo precisarmos
             // no actionlistener)
         });
@@ -140,14 +158,14 @@ public class Interface extends JFrame {
         restauranteNovoButton.addActionListener(a -> {
             CardLayout cl = (CardLayout) contentor.getLayout();
             cl.show(contentor, RESTAURANTE_CARD);
-            janela.setSize(500, 300);
+            janela.setSize(LARGURA_PADRAO, 350);
             // passar por parâmetro no construtor (fica como referência pq qdo precisarmos
             // no actionlistener)
         });
     }
 
     ////////////////////NOVO CLIENTE/////////////////////////
-    private void construirPanelCliente(Interface janela, Container contentor, JPanel loginSuperPanel, JPanel registarNovoClienteSuperpanel) {
+    private void construirPanelCliente(Interface janela, Container contentor, JPanel loginSuperPanel, JPanel registarNovoClienteSuperPanel) {
 
 
         /////SUBPAINEIS//////
@@ -178,14 +196,15 @@ public class Interface extends JFrame {
         JButton cancelarClienteButton = new JButton("CANCELAR");
         JButton registarClienteButton = new JButton("REGISTAR");
 
-        registarNovoClienteSuperpanel.add(norteNovoClienteSubPanel, "North");
-        registarNovoClienteSuperpanel.add(centroNovoClienteSubPanel, "Center");
-        registarNovoClienteSuperpanel.add(sulNovoClienteSubPanel, "South");
 
-        JPanel norteClienteSubPanel = new JPanel();
-        norteClienteSubPanel.setLayout(new FlowLayout());
-        norteClienteSubPanel.add(registarNovoClienteLabel);
-        norteNovoClienteSubPanel.add(norteClienteSubPanel, BorderLayout.CENTER);
+        registarNovoClienteSuperPanel.add(norteNovoClienteSubPanel, "North");
+        registarNovoClienteSuperPanel.add(centroNovoClienteSubPanel, "Center");
+        registarNovoClienteSuperPanel.add(sulNovoClienteSubPanel, "South");
+
+        JPanel norteNovoClienteSSPanel = new JPanel();
+        norteNovoClienteSSPanel.setLayout(new FlowLayout());
+        norteNovoClienteSSPanel.add(registarNovoClienteLabel);
+        norteNovoClienteSubPanel.add(norteNovoClienteSSPanel, BorderLayout.CENTER);
         norteNovoClienteSubPanel.add(ptEnNovoClienteButton, BorderLayout.EAST);
 
         JPanel centroNovoClienteSSPanelForm = new JPanel();
@@ -214,34 +233,34 @@ public class Interface extends JFrame {
         registarClienteButton.addActionListener(a -> {
             CardLayout cl = (CardLayout) contentor.getLayout();
             cl.show(contentor, MENUCLIENTE_CARD);
-            this.setSize(500, 300);
+            this.setSize(LARGURA_PADRAO, ALTURA_PADRAO);
 
         });
 
         cancelarClienteButton.addActionListener(a -> {
             CardLayout cl = (CardLayout) contentor.getLayout();
             cl.show(contentor, LOGIN_CARD);
-            this.setSize(500, 180);
+            this.setSize(LARGURA_LOGIN, ALTURA_LOGIN);
 
         });
     }
 
 
-    //	public void utilizadorExiste(String username) {
-//		boolean a = true;
-//		for (int i = 0; i < listaUtilizadores.size(); i++) {
-//			if (username.equalsIgnoreCase(listaUtilizadores.get(i).getUsername())) {
-//				String nomeClasse = listaUtilizadores.get(i).getClass().getSimpleName();//// Imprime o nome da Classe.
-//																						//// Tem é de se associar a uma
-//				System.out.println("Utilizador com o username: " + listaUtilizadores.get(i).getUsername()
-//						+ " é do tipo: " + nomeClasse);
-//				a = false;
-//			}
-//		}
-//		if (a) {
-//			System.out.println("Nao existe");
-//		}
-//	}
+    // public void utilizadorExiste(String username) {
+//    boolean a = true;
+//    for (int i = 0; i < listaUtilizadores.size(); i++) {
+//       if (username.equalsIgnoreCase(listaUtilizadores.get(i).getUsername())) {
+//          String nomeClasse = listaUtilizadores.get(i).getClass().getSimpleName();//// Imprime o nome da Classe.
+//                                                                //// Tem é de se associar a uma
+//          System.out.println("Utilizador com o username: " + listaUtilizadores.get(i).getUsername()
+//                + " é do tipo: " + nomeClasse);
+//          a = false;
+//       }
+//    }
+//    if (a) {
+//       System.out.println("Nao existe");
+//    }
+// }
     ////// MENU CLIENTE//////////
     private void construirPanelMenuCliente(Interface janela, Container contentor, JPanel loginSuperPanel, JPanel menuClienteSuperPanel) {
 
@@ -255,14 +274,12 @@ public class Interface extends JFrame {
 
         JButton ptEnMenuClienteButton = new JButton("PT/EN");
         ////
-        JButton adicionarPrato = new JButton("ADICIONAR PRATO");
-        JButton atualizarPratoDia = new JButton("ATUALIZAR PRATO DO DIA");
-        JButton atualizarDados = new JButton("ATUALIZAR DADOS");
-        JButton reservas = new JButton("RESERVAS");
-        JButton consultarComentarios = new JButton("CONSULTAR COMENTÁRIOS");
-        JButton responderComentarios = new JButton("RESPONDER COMENTÁRIOS");
-        JButton pontuacaoMedia = new JButton("PONTUAÇÃO MÉDIA");
-
+        JButton consultarRest = new JButton("CONSULTAR RESTAURANTES");
+        JButton comentarios = new JButton("COMENTÁRIOS");
+        JButton histResComPon = new JButton("HISTÓRICO DE RESERVAS/COMENTAR E PONTUAR");
+        JButton fazerReservas = new JButton("FAZER RESERVAS");
+        JButton cancelarReserva = new JButton("CANCELAR RESERVA");
+        JButton atualDados = new JButton("ATUALIZAR DADOS");
 
         ///
         //JButton cancelarMenuClienteButton = new JButton("CANCELAR");
@@ -281,13 +298,13 @@ public class Interface extends JFrame {
         JPanel centroNovoClienteSSPanelForm = new JPanel();
         centroNovoClienteSSPanelForm.setLayout(new GridLayout(7, 1));
         centroMenuClienteSubPanel.add(centroNovoClienteSSPanelForm);
-        centroNovoClienteSSPanelForm.add(adicionarPrato);
-        centroNovoClienteSSPanelForm.add(atualizarPratoDia);
-        centroNovoClienteSSPanelForm.add(atualizarDados);
-        centroNovoClienteSSPanelForm.add(reservas);
-        centroNovoClienteSSPanelForm.add(consultarComentarios);
-        centroNovoClienteSSPanelForm.add(responderComentarios);
-        centroNovoClienteSSPanelForm.add(pontuacaoMedia);
+        centroNovoClienteSSPanelForm.add(consultarRest);
+        centroNovoClienteSSPanelForm.add(comentarios);
+        centroNovoClienteSSPanelForm.add(histResComPon);
+        centroNovoClienteSSPanelForm.add(fazerReservas);
+        centroNovoClienteSSPanelForm.add(cancelarReserva);
+        centroNovoClienteSSPanelForm.add(atualDados);
+
 
         sulMenuClienteSubPanel.setLayout(new FlowLayout());
         //sulMenuClienteSubPanel.add(cancelarMenuClienteButton);
@@ -302,8 +319,8 @@ public class Interface extends JFrame {
 
         sairMenuClienteButton.addActionListener(a -> {
             CardLayout cl = (CardLayout) contentor.getLayout();
-            cl.show(contentor, MENUCLIENTE_CARD);
-            this.setSize(500, 300);
+            cl.show(contentor, LOGIN_CARD);
+            this.setSize(400, 180);
 
         });
 
@@ -311,13 +328,14 @@ public class Interface extends JFrame {
 
 
     ////////////////////NOVO RESTAURANTE/////////////////////////
-    private void construirPanelRestaurante(Interface janela, Container contentor, JPanel loginSuperPanel, JPanel registarNovoRestauranteSuperpanel) {
+    private void construirPanelRestaurante(Interface janela, Container contentor, JPanel loginSuperPanel, JPanel registarNovoRestauranteSuperPanel) {
 
 
         /////SUBPAINEIS//////
         JPanel norteNovoRestauranteSubPanel = new JPanel();
         norteNovoRestauranteSubPanel.setLayout(new BorderLayout());
         JPanel centroNovoRestauranteSubPanel = new JPanel();
+        centroNovoRestauranteSubPanel.setLayout(new FlowLayout());
         JPanel sulNovoRestauranteSubPanel = new JPanel();
 
         JLabel registarNovoRestauranteLabel = new JLabel("NOVO RESTAURANTE");
@@ -326,113 +344,159 @@ public class Interface extends JFrame {
         JLabel moradaRestauranteLabel = new JLabel("Morada");
         JLabel telemovelRestauranteLabel = new JLabel("Telemóvel");
 ///////////////////////
-        JLabel lotacaoRestauranteLabel = new JLabel("Lotação");
+        JLabel lotacaoRestauranteLabel = new JLabel("Lotação:");
         JLabel esplanadaRestauranteLabel = new JLabel("Esplanada");
-        JLabel zonaInteriorNFumRestauranteLabel = new JLabel("Zona Interior Não Fumadores");
-        JLabel zonaInteriorFumRestauranteLabel = new JLabel("Zona Interior Fumadores");
-        JLabel horarioAlmocoInicioRestauranteLabel = new JLabel("Horário Almoço Início");
-        JLabel horarioAlmocoFimRestauranteLabel = new JLabel("Horário Almoço Fim");
-        JLabel horarioJantarInicioRestauranteLabel = new JLabel("Horário Jantar Início");
-        JLabel horarioJantarFimRestauranteLabel = new JLabel("Horário Jantar Fim");
+        JLabel zonaInteriorLabel = new JLabel("Zona Interior:");
+        JLabel zonaInteriorNFumRestauranteLabel = new JLabel("Ñ Fumadores");
+        JLabel zonaInteriorFumRestauranteLabel = new JLabel("Fumadores");
+        JLabel horariosRestauranteLabel = new JLabel("Horários:");
+        JLabel horariosAlmocoRestauranteLabel = new JLabel("Almoço:");
+        JLabel horarioAlmocoInicioRestauranteLabel = new JLabel("Início");
+        JLabel horarioAlmocoFimRestauranteLabel = new JLabel("Fim");
+        JLabel horariosJantarRestauranteLabel = new JLabel("Jantar:");
+        JLabel horarioJantarInicioRestauranteLabel = new JLabel("Início");
+        JLabel horarioJantarFimRestauranteLabel = new JLabel("Fim");
 //////////////////////////////////
 
 
         JLabel usernameRestauranteLabel = new JLabel("Username");
-        JLabel passwordRestauranteLabel = new JLabel("Password: ");
-        JLabel confirmarPasswordRestauranteLabel = new JLabel("Confirmar password: ");
+        JLabel passwordRestauranteLabel = new JLabel("Password ");
+        JLabel confirmarPasswordRestauranteLabel = new JLabel("Confirmar password ");
 
-        JTextField nomeRestauranteText = new JTextField(20);
-        JTextField emailRestauranteText = new JTextField(20);
-        JTextField moradaRestauranteText = new JTextField(20);
-        JTextField telemovelRestauranteText = new JTextField(8);
+        JTextField nomeRestauranteText = new JTextField(18);
+        nomeRestauranteText.setBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3));
+        JTextField emailRestauranteText = new JTextField(18);
+        emailRestauranteText.setBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3));
+        JTextField moradaRestauranteText = new JTextField(15);
+        moradaRestauranteText.setBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3));
+        JTextField telemovelRestauranteText = new JTextField(5);
+        telemovelRestauranteText.setBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3));
         ////////
-        JTextField lotacaoRestauranteText = new JTextField(5);
-        JTextField esplanadaRestauranteText = new JTextField(5);
-        JTextField zonaInteriorNFumRestauranteText = new JTextField(5);
-        JTextField zonaInteriorFumRestauranteText = new JTextField(5);
-        JTextField horarioAlmocoInicioRestauranteText = new JTextField(5);
-        JTextField horarioAlmocoFimRestauranteText = new JTextField(5);
-        JTextField horarioJantarInicioRestauranteText = new JTextField(5);
-        JTextField horarioJantarFimRestauranteText = new JTextField(5);
+        JTextField esplanadaRestauranteText = new JTextField(3);
+        esplanadaRestauranteText.setBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3));
+        JTextField zonaInteriorNFumRestauranteText = new JTextField(3);
+        zonaInteriorNFumRestauranteText.setBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3));
+        JTextField zonaInteriorFumRestauranteText = new JTextField(3);
+        zonaInteriorFumRestauranteText.setBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3));
+        JTextField horarioAlmocoInicioRestauranteText = new JTextField(3);
+        horarioAlmocoInicioRestauranteText.setBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3));
+        JTextField horarioAlmocoFimRestauranteText = new JTextField(3);
+        horarioAlmocoFimRestauranteText.setBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3));
+        JTextField horarioJantarInicioRestauranteText = new JTextField(3);
+        horarioJantarInicioRestauranteText.setBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3));
+        JTextField horarioJantarFimRestauranteText = new JTextField(3);
+        horarioJantarFimRestauranteText.setBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3));
         ///////
         JTextField usernameRestauranteText = new JTextField(20);
+        usernameRestauranteText.setBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3));
 
-        JPasswordField passwordRestauranteField = new JPasswordField(20);
-        JPasswordField confirmarPasswordRestauranteField = new JPasswordField(20);
+        JPasswordField passwordRestauranteField = new JPasswordField(15);
+        passwordRestauranteField.setBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3));
+        JPasswordField confirmarPasswordRestauranteField = new JPasswordField(15);
+        confirmarPasswordRestauranteField.setBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3));
 
         JButton ptEnNovoRestauranteButton = new JButton("PT/EN");
         JButton cancelarRestauranteButton = new JButton("CANCELAR");
         JButton registarRestauranteButton = new JButton("REGISTAR");
 
-        registarNovoRestauranteSuperpanel.add(norteNovoRestauranteSubPanel, "North");
-        registarNovoRestauranteSuperpanel.add(centroNovoRestauranteSubPanel, "Center");
-        registarNovoRestauranteSuperpanel.add(sulNovoRestauranteSubPanel, "South");
+        registarNovoRestauranteSuperPanel.add(norteNovoRestauranteSubPanel, "North");
+        registarNovoRestauranteSuperPanel.add(centroNovoRestauranteSubPanel, "Center");
+        registarNovoRestauranteSuperPanel.add(sulNovoRestauranteSubPanel, "South");
 
-        JPanel norteRestauranteSubPanel = new JPanel();
-        norteRestauranteSubPanel.setLayout(new FlowLayout());
-        norteRestauranteSubPanel.add(registarNovoRestauranteLabel);
-        norteNovoRestauranteSubPanel.add(norteRestauranteSubPanel, BorderLayout.CENTER);
+//        JPanel norteSupMRestSubPanel = new JPanel();
+//        norteSupMRestSubPanel.setLayout(new FlowLayout());
+//        norteNovoRestauranteSubPanel.add(norteSupMRestSubPanel, BorderLayout.CENTER);
+//        norteSupMRestSubPanel.add(registarNovoRestauranteLabel);
+//        norteNovoRestauranteSubPanel.add(ptEnNovoRestauranteButton, BorderLayout.EAST);
+
+        JPanel norteNovoRestSSPanel = new JPanel();
+        norteNovoRestSSPanel.setLayout(new FlowLayout());
+        norteNovoRestSSPanel.add(registarNovoRestauranteLabel);
+        norteNovoRestauranteSubPanel.add(norteNovoRestSSPanel, BorderLayout.CENTER);
         norteNovoRestauranteSubPanel.add(ptEnNovoRestauranteButton, BorderLayout.EAST);
 
-        JPanel centroNovoRestauranteSSPanelForm = new JPanel();
-        centroNovoRestauranteSSPanelForm.setLayout(new GridLayout(12, 2));
-        centroNovoRestauranteSubPanel.add(centroNovoRestauranteSSPanelForm);
-        centroNovoRestauranteSSPanelForm.add(nomeRestauranteLabel);
-        centroNovoRestauranteSSPanelForm.add(nomeRestauranteText);
-        centroNovoRestauranteSSPanelForm.add(emailRestauranteLabel);
-        centroNovoRestauranteSSPanelForm.add(emailRestauranteText);
-        centroNovoRestauranteSSPanelForm.add(moradaRestauranteLabel);
-        centroNovoRestauranteSSPanelForm.add(moradaRestauranteText);
-        centroNovoRestauranteSSPanelForm.add(telemovelRestauranteLabel);
-        centroNovoRestauranteSSPanelForm.add(telemovelRestauranteText);
+        JPanel centroNovoRestSSPanelForm1 = new JPanel();
+        centroNovoRestSSPanelForm1.setLayout(new FlowLayout());
+        centroNovoRestauranteSubPanel.add(centroNovoRestSSPanelForm1);
+        JPanel centroNovoRestSSPanelForm2 = new JPanel();
+        centroNovoRestSSPanelForm2.setLayout(new FlowLayout());
+        centroNovoRestauranteSubPanel.add(centroNovoRestSSPanelForm2, BorderLayout.CENTER);
+        JPanel centroNovoRestSSPanelForm3 = new JPanel();
+        //centroNovoRestSSPanelForm3.setLayout(new FlowLayout());
+        centroNovoRestauranteSubPanel.add(centroNovoRestSSPanelForm3, BorderLayout.CENTER);
+
+        JPanel centroNovoRestSSPanelForm4 = new JPanel();
+        centroNovoRestSSPanelForm4.setLayout(new FlowLayout());
+        centroNovoRestauranteSubPanel.add(centroNovoRestSSPanelForm4, BorderLayout.CENTER);
+
+        JPanel centroNovoRestSSPanelForm5 = new JPanel();
+        centroNovoRestSSPanelForm5.setLayout(new FlowLayout());
+        centroNovoRestauranteSubPanel.add(centroNovoRestSSPanelForm5, BorderLayout.CENTER);
+
+        JPanel centroNovoRestSSPanelForm6 = new JPanel();
+        centroNovoRestSSPanelForm6.setLayout(new FlowLayout());
+        centroNovoRestauranteSubPanel.add(centroNovoRestSSPanelForm6, BorderLayout.CENTER);
+
+        centroNovoRestSSPanelForm1.add(nomeRestauranteLabel);
+        centroNovoRestSSPanelForm1.add(nomeRestauranteText);
+        centroNovoRestSSPanelForm1.add(emailRestauranteLabel);
+        centroNovoRestSSPanelForm1.add(emailRestauranteText);
+        centroNovoRestSSPanelForm2.add(moradaRestauranteLabel);
+        centroNovoRestSSPanelForm2.add(moradaRestauranteText);
+        centroNovoRestSSPanelForm2.add(telemovelRestauranteLabel);
+        centroNovoRestSSPanelForm2.add(telemovelRestauranteText);
         /////
-        centroNovoRestauranteSSPanelForm.add(lotacaoRestauranteLabel);
-        centroNovoRestauranteSSPanelForm.add(lotacaoRestauranteText);
-        centroNovoRestauranteSSPanelForm.add(esplanadaRestauranteLabel);
-        centroNovoRestauranteSSPanelForm.add(esplanadaRestauranteText);
-        centroNovoRestauranteSSPanelForm.add(zonaInteriorNFumRestauranteLabel);
-        centroNovoRestauranteSSPanelForm.add(zonaInteriorNFumRestauranteText);
-        centroNovoRestauranteSSPanelForm.add(zonaInteriorFumRestauranteLabel);
-        centroNovoRestauranteSSPanelForm.add(zonaInteriorFumRestauranteText);
-        centroNovoRestauranteSSPanelForm.add(horarioAlmocoInicioRestauranteLabel);
-        centroNovoRestauranteSSPanelForm.add(horarioAlmocoInicioRestauranteText);
-        centroNovoRestauranteSSPanelForm.add(horarioAlmocoFimRestauranteLabel);
-        centroNovoRestauranteSSPanelForm.add(horarioAlmocoFimRestauranteText);
-        centroNovoRestauranteSSPanelForm.add(horarioJantarInicioRestauranteLabel);
-        centroNovoRestauranteSSPanelForm.add(horarioJantarInicioRestauranteText);
-        centroNovoRestauranteSSPanelForm.add(horarioJantarFimRestauranteLabel);
-        centroNovoRestauranteSSPanelForm.add(horarioJantarFimRestauranteText);
+        centroNovoRestSSPanelForm3.add(lotacaoRestauranteLabel);
+        centroNovoRestSSPanelForm3.add(esplanadaRestauranteLabel);
+        centroNovoRestSSPanelForm3.add(esplanadaRestauranteText);
+        centroNovoRestSSPanelForm3.add(zonaInteriorLabel);
+        centroNovoRestSSPanelForm3.add(zonaInteriorNFumRestauranteLabel);
+        centroNovoRestSSPanelForm3.add(zonaInteriorNFumRestauranteText);
+        centroNovoRestSSPanelForm3.add(zonaInteriorFumRestauranteLabel);
+        centroNovoRestSSPanelForm3.add(zonaInteriorFumRestauranteText);
 
+        centroNovoRestSSPanelForm4.add(horariosRestauranteLabel);
+        centroNovoRestSSPanelForm4.add(horariosAlmocoRestauranteLabel);
+        centroNovoRestSSPanelForm4.add(horarioAlmocoInicioRestauranteLabel);
+        centroNovoRestSSPanelForm4.add(horarioAlmocoInicioRestauranteText);
+        centroNovoRestSSPanelForm4.add(horarioAlmocoFimRestauranteLabel);
+        centroNovoRestSSPanelForm4.add(horarioAlmocoFimRestauranteText);
+        centroNovoRestSSPanelForm4.add(horariosJantarRestauranteLabel);
+        centroNovoRestSSPanelForm4.add(horarioJantarInicioRestauranteLabel);
+        centroNovoRestSSPanelForm4.add(horarioJantarInicioRestauranteText);
+        centroNovoRestSSPanelForm4.add(horarioJantarFimRestauranteLabel);
+        centroNovoRestSSPanelForm4.add(horarioJantarFimRestauranteText);
 
-        ////
-        centroNovoRestauranteSSPanelForm.add(usernameRestauranteLabel);
-        centroNovoRestauranteSSPanelForm.add(usernameRestauranteText);
-        centroNovoRestauranteSSPanelForm.add(passwordRestauranteLabel);
-        centroNovoRestauranteSSPanelForm.add(passwordRestauranteField);
-        centroNovoRestauranteSSPanelForm.add(confirmarPasswordRestauranteLabel);
-        centroNovoRestauranteSSPanelForm.add(confirmarPasswordRestauranteField);
+        //
+        centroNovoRestSSPanelForm5.add(usernameRestauranteLabel);
+        centroNovoRestSSPanelForm5.add(usernameRestauranteText);
+
+        centroNovoRestSSPanelForm6.add(passwordRestauranteLabel);
+        centroNovoRestSSPanelForm6.add(passwordRestauranteField);
+        centroNovoRestSSPanelForm6.add(confirmarPasswordRestauranteLabel);
+        centroNovoRestSSPanelForm6.add(confirmarPasswordRestauranteField);
+
 
         sulNovoRestauranteSubPanel.setLayout(new FlowLayout());
         sulNovoRestauranteSubPanel.add(cancelarRestauranteButton);
         sulNovoRestauranteSubPanel.add(registarRestauranteButton);
 
-        registarRestauranteButton.addActionListener(a -> {
-            CardLayout cl = (CardLayout) contentor.getLayout();
-            cl.show(contentor, RESTAURANTE_CARD);
-            this.setSize(500, 300);
-            // passar por parâmetro no construtor (fica como referência pq qdo precisarmos
-            // no actionlistener)
-        });
-        cancelarRestauranteButton.addActionListener(a -> {
+        cancelarRestauranteButton.addActionListener(e -> {
             CardLayout cl = (CardLayout) contentor.getLayout();
             cl.show(contentor, LOGIN_CARD);
             this.setSize(500, 180);
+        });
+
+        registarRestauranteButton.addActionListener(a -> {
+            CardLayout cl = (CardLayout) contentor.getLayout();
+            cl.show(contentor, MENURESTAURANTE_CARD);
+            this.setSize(500, 300);
 
         });
     }
 
     //////MENU RESTAURANTE////////
-    private void construirPanelMenuCliente(Container contentor, JPanel loginSuperPanel, JPanel menuRestauranteSuperPanel) {
+    private void construirPanelMRest(Container contentor, JPanel loginSuperPanel, JPanel menuRestauranteSuperPanel) {
 
         /////SUBPAINEIS//////
         JPanel norteMenuRestauranteSubPanel = new JPanel();
@@ -444,10 +508,10 @@ public class Interface extends JFrame {
 
         JButton ptEnMenuRestauranteButton = new JButton("PT/EN");
         ////
-        JButton adicionarPrato = new JButton("ADICIONAR PRATO");
-        JButton atualizarPratoDia = new JButton("ATUALIZAR PRATO DO DIA");
-        JButton atualizarDados = new JButton("ATUALIZAR DADOS");
-        JButton reservas = new JButton("RESERVAS");
+        JButton mRestAdicionarPratoButton = new JButton("ADICIONAR PRATO");
+        JButton mRestAtualizarPratoDiaButton = new JButton("ATUALIZAR PRATO DO DIA");
+        JButton mRestAtualizarDadosButton = new JButton("ATUALIZAR DADOS");
+        JButton mRestReservasButton = new JButton("RESERVAS");
         JButton consultarComentarios = new JButton("CONSULTAR COMENTÁRIOS");
         JButton responderComentarios = new JButton("RESPONDER COMENTÁRIOS");
         JButton pontuacaoMedia = new JButton("PONTUAÇÃO MÉDIA");
@@ -461,19 +525,19 @@ public class Interface extends JFrame {
         menuRestauranteSuperPanel.add(centroMenuRestauranteSubPanel, "Center");
         menuRestauranteSuperPanel.add(sulMenuRestauranteSubPanel, "South");
 
-        JPanel norteRestauranteSubPanel = new JPanel();
-        norteRestauranteSubPanel.setLayout(new FlowLayout());
-        norteRestauranteSubPanel.add(registarNovoRestauranteLabel);
-        norteMenuRestauranteSubPanel.add(norteRestauranteSubPanel, BorderLayout.CENTER);
+        JPanel norteMenuRestauranteSSPanel = new JPanel();
+        norteMenuRestauranteSSPanel.setLayout(new FlowLayout());
+        norteMenuRestauranteSSPanel.add(registarNovoRestauranteLabel);
+        norteMenuRestauranteSubPanel.add(norteMenuRestauranteSSPanel, BorderLayout.CENTER);
         norteMenuRestauranteSubPanel.add(ptEnMenuRestauranteButton, BorderLayout.EAST);
 
         JPanel centroNovoRestauranteSSPanelForm = new JPanel();
         centroNovoRestauranteSSPanelForm.setLayout(new GridLayout(7, 1));
         centroMenuRestauranteSubPanel.add(centroNovoRestauranteSSPanelForm);
-        centroNovoRestauranteSSPanelForm.add(adicionarPrato);
-        centroNovoRestauranteSSPanelForm.add(atualizarPratoDia);
-        centroNovoRestauranteSSPanelForm.add(atualizarDados);
-        centroNovoRestauranteSSPanelForm.add(reservas);
+        centroNovoRestauranteSSPanelForm.add(mRestAdicionarPratoButton);
+        centroNovoRestauranteSSPanelForm.add(mRestAtualizarPratoDiaButton);
+        centroNovoRestauranteSSPanelForm.add(mRestAtualizarDadosButton);
+        centroNovoRestauranteSSPanelForm.add(mRestReservasButton);
         centroNovoRestauranteSSPanelForm.add(consultarComentarios);
         centroNovoRestauranteSSPanelForm.add(responderComentarios);
         centroNovoRestauranteSSPanelForm.add(pontuacaoMedia);
@@ -483,19 +547,405 @@ public class Interface extends JFrame {
         sulMenuRestauranteSubPanel.add(sairMenuRestauranteButton);
 
 //        cancelarMenuRestauranteButton.addActionListener(a -> {
-//            CardLayout cl = (CardLayout) contentor.getLayout();
-//            cl.show(contentor, RESTAURANTE_CARD);
+//           CardLayout cl = (CardLayout) contentor.getLayout();
+//           cl.show(contentor, LOGIN_CARD);
 //            this.setSize(500, 300);
 //
-//        });
+//       });
+        mRestAdicionarPratoButton.addActionListener(a -> {
+            CardLayout cl = (CardLayout) contentor.getLayout();
+            cl.show(contentor, MRESTADICIONARPRATO_CARD);
+            this.setSize(LARGURA_LOGIN, ALTURA_LOGIN);
+
+        });
+
+        mRestAtualizarPratoDiaButton.addActionListener(a -> {
+            CardLayout cl = (CardLayout) contentor.getLayout();
+            cl.show(contentor, MRESTATUALIZARPRATO_CARD);
+            this.setSize(LARGURA_LOGIN, ALTURA_LOGIN);
+
+        });
+
+        mRestReservasButton.addActionListener(a -> {
+            CardLayout cl = (CardLayout) contentor.getLayout();
+            cl.show(contentor, MRESTRESERVSUPERPANEL_CARD);
+            this.setSize(LARGURA_PADRAO, 350);
+
+        });
+
+        mRestAtualizarDadosButton.addActionListener(a -> {
+            CardLayout cl = (CardLayout) contentor.getLayout();
+            cl.show(contentor, MRESTATUALIZARDADOS_CARD);
+            this.setSize(LARGURA_PADRAO, 350);
+
+
+
+
+        });
+
 
         sairMenuRestauranteButton.addActionListener(a -> {
             CardLayout cl = (CardLayout) contentor.getLayout();
             cl.show(contentor, RESTAURANTE_CARD);
-            this.setSize(500, 300);
+            this.setSize(LARGURA_PADRAO, ALTURA_PADRAO);
 
         });
     }
+///////////MENU RESTAURANTE - ADICIONAR PRATO//////////////////////
+        private void construirPanelMRestAdPrato(Interface janela, Container contentor, JPanel loginSuperPanel, JPanel mRestAdPratoSuperPanel) {
 
+
+            /////SUBPAINEIS//////
+            JPanel norteAdPratoSubPanel = new JPanel();
+            norteAdPratoSubPanel.setLayout(new BorderLayout());
+            JPanel centroAdPratoSubPanel = new JPanel();
+            JPanel sulAdPratoSubPanel = new JPanel();
+
+            JLabel adPratoLabel = new JLabel("ADICIONAR PRATO");
+            JLabel nomePratoLabel = new JLabel("Nome Prato");
+            JLabel descricaoPratoLabel = new JLabel("Descrição");
+            JLabel precoPratoLabel = new JLabel("Preço");
+
+            JTextField nomePratoText = new JTextField(20);
+            JTextField descricaoPratoText = new JTextField(20);
+            JTextField precoPratoText = new JTextField(10);
+
+
+            JButton ptEnAdPratoButton = new JButton("PT/EN");
+            JButton voltarMenuRestAdPratoButton = new JButton("MENU RESTAURANTE");
+            JButton confirmarAdPratoButton = new JButton("CONFIRMAR");
+
+
+            JComboBox tipoPratoAd = new JComboBox();
+            tipoPratoAd.addItem("Carta");
+            tipoPratoAd.addItem("Prato do dia");
+
+
+            mRestAdPratoSuperPanel.add(norteAdPratoSubPanel, "North");
+            mRestAdPratoSuperPanel.add(centroAdPratoSubPanel, "Center");
+            mRestAdPratoSuperPanel.add(sulAdPratoSubPanel, "South");
+
+            JPanel norteAdPratoSSPanel = new JPanel();
+            norteAdPratoSSPanel.setLayout(new FlowLayout());
+            norteAdPratoSSPanel.add(adPratoLabel);
+            norteAdPratoSubPanel.add(norteAdPratoSSPanel, BorderLayout.CENTER);
+            norteAdPratoSubPanel.add(ptEnAdPratoButton, BorderLayout.EAST);
+
+            JPanel centroAdPratoSSPanelForm = new JPanel();
+            centroAdPratoSSPanelForm.setLayout(new GridLayout(5, 2));
+            centroAdPratoSubPanel.add(centroAdPratoSSPanelForm);
+            centroAdPratoSubPanel.add(tipoPratoAd);
+            centroAdPratoSSPanelForm.add(nomePratoLabel);
+            centroAdPratoSSPanelForm.add(nomePratoText);
+            centroAdPratoSSPanelForm.add(descricaoPratoLabel);
+            centroAdPratoSSPanelForm.add(descricaoPratoText);
+            centroAdPratoSSPanelForm.add(precoPratoLabel);
+            centroAdPratoSSPanelForm.add(precoPratoText);
+
+            sulAdPratoSubPanel.setLayout(new FlowLayout());
+            sulAdPratoSubPanel.add(voltarMenuRestAdPratoButton);
+            sulAdPratoSubPanel.add(confirmarAdPratoButton);
+
+
+            voltarMenuRestAdPratoButton.addActionListener(a -> {
+                CardLayout cl = (CardLayout) contentor.getLayout();
+                cl.show(contentor, MENURESTAURANTE_CARD);
+                this.setSize(LARGURA_PADRAO, ALTURA_PADRAO);
+
+            });
+
+            confirmarAdPratoButton.addActionListener(a -> {
+                CardLayout cl = (CardLayout) contentor.getLayout();
+                cl.show(contentor, MENURESTAURANTE_CARD);
+                this.setSize(LARGURA_PADRAO, ALTURA_PADRAO);
+
+            });
+
+        }
+    /////////MENU RESTAURANTE – ATUALIZAR PRATO//////////////////////
+    private void construirPanelMRestAtPratoDia(Interface janela, Container contentor, JPanel loginSuperPanel, JPanel mRestAtPratoSuperPanel) {
+
+
+        /////SUBPAINEIS//////
+        JPanel norteAtPratoSubPanel = new JPanel();
+        norteAtPratoSubPanel.setLayout(new BorderLayout());
+        JPanel centroAtPratoSubPanel = new JPanel();
+        JPanel sulAtPratoSubPanel = new JPanel();
+
+        JLabel atPratoLabel = new JLabel("ATUALIZAR PRATO DO DIA");
+        JLabel atNomePratoLabel = new JLabel("Nome Prato");
+        JLabel atDescricaoPratoLabel = new JLabel("Descrição");
+        JLabel atPrecoPratoLabel = new JLabel("Preço");
+
+        JTextField atNomePratoText = new JTextField(20);
+        JTextField atDescricaoPratoText = new JTextField(20);
+        JTextField atPrecoPratoText = new JTextField(10);
+
+        JButton ptEnAtPratoButton = new JButton("PT/EN");
+        JButton voltarMenuRestAtPratoButton = new JButton("MENU RESTAURANTE");
+        JButton confirmarAtPratoButton = new JButton("CONFIRMAR");
+
+        mRestAtPratoSuperPanel.add(norteAtPratoSubPanel, "North");
+        mRestAtPratoSuperPanel.add(centroAtPratoSubPanel, "Center");
+        mRestAtPratoSuperPanel.add(sulAtPratoSubPanel, "South");
+
+        JPanel norteAtPratoSSPanel = new JPanel();
+        norteAtPratoSSPanel.setLayout(new FlowLayout());
+        norteAtPratoSSPanel.add(atPratoLabel);
+        norteAtPratoSubPanel.add(norteAtPratoSSPanel, BorderLayout.CENTER);
+        norteAtPratoSubPanel.add(ptEnAtPratoButton, BorderLayout.EAST);
+
+        JPanel centroAtPratoSSPanelForm = new JPanel();
+        centroAtPratoSSPanelForm.setLayout(new GridLayout(3, 2));
+        centroAtPratoSubPanel.add(centroAtPratoSSPanelForm);
+        //centroAtPratoSSPanelForm.add(atPratoLabel);
+        centroAtPratoSSPanelForm.add(atNomePratoLabel);
+        centroAtPratoSSPanelForm.add(atNomePratoText);
+        centroAtPratoSSPanelForm.add(atDescricaoPratoLabel);
+        centroAtPratoSSPanelForm.add(atDescricaoPratoText);
+        centroAtPratoSSPanelForm.add(atPrecoPratoLabel);
+        centroAtPratoSSPanelForm.add(atPrecoPratoText);
+
+        sulAtPratoSubPanel.setLayout(new FlowLayout());
+        sulAtPratoSubPanel.add(voltarMenuRestAtPratoButton);
+        sulAtPratoSubPanel.add(confirmarAtPratoButton);
+
+
+        voltarMenuRestAtPratoButton.addActionListener(a -> {
+            CardLayout cl = (CardLayout) contentor.getLayout();
+            cl.show(contentor, MENURESTAURANTE_CARD);
+            this.setSize(LARGURA_PADRAO, ALTURA_PADRAO);
+
+        });
+        confirmarAtPratoButton.addActionListener(a -> {
+            CardLayout cl = (CardLayout) contentor.getLayout();
+            cl.show(contentor, MENURESTAURANTE_CARD);
+            this.setSize(LARGURA_PADRAO, ALTURA_PADRAO);
+
+        });
+    }
+    ///////////////////MENU RESTAURANTE - ATUALIZAR DADOS /////////////////////////
+    private void construirPanelMRestAtDados (Interface janela, Container contentor, JPanel loginSuperPanel, JPanel mRestAtDadosSuperPanel) {
+
+
+        /////SUBPAINEIS//////
+        JPanel norteMRestAtDadosSubPanel = new JPanel();
+        norteMRestAtDadosSubPanel.setLayout(new BorderLayout());
+        JPanel centroMRestAtDadosSubPanel = new JPanel();
+        JPanel sulMRestAtDadosSubPanel = new JPanel();
+
+        JLabel atDadosRestLabel = new JLabel("ATUALIZAR DADOS");
+        JLabel nomeAtDadosRestLabel = new JLabel("Nome");
+        JLabel emailAtDadosRestLabel = new JLabel("E-mail");
+        JLabel moradaAtDadosRestLabel = new JLabel("Morada");
+        JLabel telemovelAtDadosRestLabel = new JLabel("Telemóvel");
+///////////////////////
+        JLabel lotacaoAtDadosRestLabel = new JLabel("Lotação:");
+        JLabel esplanadaAtDadosRestLabel = new JLabel("Esplanada");
+        JLabel zonaInteriorAtDadosRestLabel = new JLabel("Zona Interior:");
+        JLabel zonaInteriorNFumAtDadosRestLabel = new JLabel("Ñ Fumadores");
+        JLabel zonaInteriorFumAtDadosRestLabel = new JLabel("Fumadores");
+        JLabel horariosAtDadosRestLabel = new JLabel("Horários:");
+        JLabel horariosAlmocoAtDadosRestLabel = new JLabel("Almoço:");
+        JLabel horarioAlmocoInicioAtDadosRestLabel = new JLabel("Início");
+        JLabel horarioAlmocoFimAtDadosRestLabel = new JLabel("Fim");
+        JLabel horariosJantarAtDadosRestLabel = new JLabel("Jantar:");
+        JLabel horarioJantarInicioAtDadosRestLabel = new JLabel("Início");
+        JLabel horarioJantarFimAtDadosRestLabel = new JLabel("Fim");
+        JLabel usernameAtDadosRestLabel = new JLabel("Username");
+        JLabel passwordAtDadosRestLabel = new JLabel("Password: ");
+        JLabel confirmarPasswordAtDadosRestLabel = new JLabel("Confirmar password: ");
+
+        JTextField nomeAtDadosRestText = new JTextField(18);
+        nomeAtDadosRestText.setBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3));
+        JTextField emailAtDadosRestText = new JTextField(18);
+        emailAtDadosRestText.setBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3));
+        JTextField moradaAtDadosRestText = new JTextField(15);
+        moradaAtDadosRestText.setBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3));
+        JTextField telemovelAtDadosRestText = new JTextField(5);
+        telemovelAtDadosRestText.setBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3));
+
+        //JTextField lotacaoAtDadosRestText = new JTextField(5);
+        JTextField esplanadaAtDadosRestText = new JTextField(3);
+        esplanadaAtDadosRestText.setBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3));
+        JTextField zonaInteriorNFumAtDadosRestText = new JTextField(3);
+        zonaInteriorNFumAtDadosRestText.setBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3));
+        JTextField zonaInteriorFumAtDadosRestText = new JTextField(3);
+        zonaInteriorFumAtDadosRestText.setBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3));
+        JTextField horarioAlmocoInicioAtDadosRestText = new JTextField(3);
+        horarioAlmocoInicioAtDadosRestText.setBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3));
+        JTextField horarioAlmocoFimAtDadosRestText = new JTextField(3);
+        horarioAlmocoFimAtDadosRestText.setBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3));
+        JTextField horarioJantarInicioAtDadosRestText = new JTextField(3);
+        horarioJantarInicioAtDadosRestText.setBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3));
+        JTextField horarioJantarFimAtDadosRestText = new JTextField(3);
+        horarioJantarFimAtDadosRestText.setBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3));
+        ///////
+        JTextField usernameAtDadosRestText = new JTextField(20);
+        usernameAtDadosRestText.setBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3));
+
+        JPasswordField passwordAtDadosRestField = new JPasswordField(15);
+        passwordAtDadosRestField.setBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3));
+        JPasswordField confirmarPasswordAtDadosRestField = new JPasswordField(15);
+        confirmarPasswordAtDadosRestField.setBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3));
+
+        JButton ptEnAtDadosRestButton = new JButton("PT/EN");
+        JButton voltarMenuRestAtDadosRestButton = new JButton("MENU RESTAURANTE");
+        JButton atDadosRestButton = new JButton("ATUALIZAR");
+
+        mRestAtDadosSuperPanel.add(norteMRestAtDadosSubPanel, "North");
+        mRestAtDadosSuperPanel.add(centroMRestAtDadosSubPanel, "Center");
+        mRestAtDadosSuperPanel.add(sulMRestAtDadosSubPanel, "South");
+
+        JPanel norteAtDadosRestSSPanel = new JPanel();
+        norteAtDadosRestSSPanel.setLayout(new FlowLayout());
+        norteAtDadosRestSSPanel.add(atDadosRestLabel);
+        norteMRestAtDadosSubPanel.add(norteAtDadosRestSSPanel, BorderLayout.CENTER);
+        norteMRestAtDadosSubPanel.add(ptEnAtDadosRestButton, BorderLayout.EAST);
+
+        JPanel centroAtDadosRestSSPanelForm1 = new JPanel();
+        centroAtDadosRestSSPanelForm1.setLayout(new FlowLayout());
+        centroMRestAtDadosSubPanel.add(centroAtDadosRestSSPanelForm1);
+
+        JPanel centroAtDadosRestSSPanelForm2 = new JPanel();
+        centroAtDadosRestSSPanelForm2.setLayout(new FlowLayout());
+        centroMRestAtDadosSubPanel.add(centroAtDadosRestSSPanelForm2, BorderLayout.CENTER);
+
+        JPanel centroAtDadosRestSSPanelForm3 = new JPanel();
+        //centroAtDadosRestSSPanelForm3.setLayout(new FlowLayout());
+        centroMRestAtDadosSubPanel.add(centroAtDadosRestSSPanelForm3, BorderLayout.CENTER);
+
+        JPanel centroAtDadosRestSSPanelForm4 = new JPanel();
+        centroAtDadosRestSSPanelForm4.setLayout(new FlowLayout());
+        centroMRestAtDadosSubPanel.add(centroAtDadosRestSSPanelForm4, BorderLayout.CENTER);
+
+        JPanel centroAtDadosRestSSPanelForm5 = new JPanel();
+        centroAtDadosRestSSPanelForm5.setLayout(new FlowLayout());
+        centroMRestAtDadosSubPanel.add(centroAtDadosRestSSPanelForm5, BorderLayout.CENTER);
+
+        JPanel centroAtDadosRestSSPanelForm6 = new JPanel();
+        centroAtDadosRestSSPanelForm6.setLayout(new FlowLayout());
+        centroMRestAtDadosSubPanel.add(centroAtDadosRestSSPanelForm6, BorderLayout.CENTER);
+
+        centroAtDadosRestSSPanelForm1.add(nomeAtDadosRestLabel);
+        centroAtDadosRestSSPanelForm1.add(nomeAtDadosRestText);
+        centroAtDadosRestSSPanelForm1.add(emailAtDadosRestLabel);
+        centroAtDadosRestSSPanelForm1.add(emailAtDadosRestText);
+
+        centroAtDadosRestSSPanelForm2.add(moradaAtDadosRestLabel);
+        centroAtDadosRestSSPanelForm2.add(moradaAtDadosRestText);
+        centroAtDadosRestSSPanelForm2.add(telemovelAtDadosRestLabel);
+        centroAtDadosRestSSPanelForm2.add(telemovelAtDadosRestText);
+
+        centroAtDadosRestSSPanelForm3.add(lotacaoAtDadosRestLabel);
+        centroAtDadosRestSSPanelForm3.add(esplanadaAtDadosRestLabel);
+        centroAtDadosRestSSPanelForm3.add(esplanadaAtDadosRestText);
+        centroAtDadosRestSSPanelForm3.add(zonaInteriorAtDadosRestLabel);
+        centroAtDadosRestSSPanelForm3.add(zonaInteriorNFumAtDadosRestLabel);
+        centroAtDadosRestSSPanelForm3.add(zonaInteriorNFumAtDadosRestText);
+        centroAtDadosRestSSPanelForm3.add(zonaInteriorFumAtDadosRestLabel);
+        centroAtDadosRestSSPanelForm3.add(zonaInteriorFumAtDadosRestText);
+
+
+        centroAtDadosRestSSPanelForm4.add(horariosAtDadosRestLabel);
+        centroAtDadosRestSSPanelForm4.add(horariosAlmocoAtDadosRestLabel);
+        centroAtDadosRestSSPanelForm4.add(horarioAlmocoInicioAtDadosRestLabel);
+        centroAtDadosRestSSPanelForm4.add(horarioAlmocoInicioAtDadosRestText);
+        centroAtDadosRestSSPanelForm4.add(horarioAlmocoFimAtDadosRestLabel);
+        centroAtDadosRestSSPanelForm4.add(horarioAlmocoFimAtDadosRestText);
+        centroAtDadosRestSSPanelForm4.add(horariosJantarAtDadosRestLabel);
+        centroAtDadosRestSSPanelForm4.add(horarioJantarInicioAtDadosRestLabel);
+        centroAtDadosRestSSPanelForm4.add(horarioJantarInicioAtDadosRestText);
+        centroAtDadosRestSSPanelForm4.add(horarioJantarFimAtDadosRestLabel);
+        centroAtDadosRestSSPanelForm4.add(horarioJantarFimAtDadosRestText);
+
+        centroAtDadosRestSSPanelForm5.add(usernameAtDadosRestLabel);
+        centroAtDadosRestSSPanelForm5.add(usernameAtDadosRestText);
+
+        centroAtDadosRestSSPanelForm6.add(passwordAtDadosRestLabel);
+        centroAtDadosRestSSPanelForm6.add(passwordAtDadosRestField);
+        centroAtDadosRestSSPanelForm6.add(confirmarPasswordAtDadosRestLabel);
+        centroAtDadosRestSSPanelForm6.add(confirmarPasswordAtDadosRestField);
+
+        sulMRestAtDadosSubPanel.setLayout(new FlowLayout());
+        sulMRestAtDadosSubPanel.add(voltarMenuRestAtDadosRestButton);
+        sulMRestAtDadosSubPanel.add(atDadosRestButton);
+
+        voltarMenuRestAtDadosRestButton.addActionListener(e -> {
+            CardLayout cl = (CardLayout) contentor.getLayout();
+            cl.show(contentor, MENURESTAURANTE_CARD);
+            this.setSize(LARGURA_PADRAO, ALTURA_PADRAO);
+        });
+
+        atDadosRestButton.addActionListener(a -> {
+            CardLayout cl = (CardLayout) contentor.getLayout();
+            cl.show(contentor, MENURESTAURANTE_CARD);
+            this.setSize(LARGURA_PADRAO, ALTURA_PADRAO);
+
+        });
+
+    }
+
+    //////MENU RESTAURANTE – RESERVAS//////////
+    private void construirPanelMRestReservas (Interface janela, Container contentor, JPanel loginSuperPanel, JPanel mRestReservasSuperPanel) {
+
+
+        /////SUBPAINEIS//////
+        JPanel norteMRestReservasSubPanel = new JPanel();
+        norteMRestReservasSubPanel.setLayout(new BorderLayout());
+        JPanel centroMRestReservasSubPanel = new JPanel();
+        JPanel sulMRestReservasSubPanel = new JPanel();
+
+        JLabel mRestReservasLabel = new JLabel("RESERVAS");
+        JLabel filtrarMRestReservasLabel = new JLabel("Filtrar Reservas");
+
+        JComboBox tiposFiltrosMRestReservasLabel = new JComboBox();
+        tiposFiltrosMRestReservasLabel.addItem("Data");
+        tiposFiltrosMRestReservasLabel.addItem("Tipo: Presencial");
+        tiposFiltrosMRestReservasLabel.addItem("Tipo: Take-Away");
+        tiposFiltrosMRestReservasLabel.addItem("Valores");
+        tiposFiltrosMRestReservasLabel.addItem("Cliente");
+
+
+        JButton ptEnMRestReservasButton = new JButton("PT/EN");
+        JButton voltarMRestReservasButton = new JButton("MENU RESTAURANTE");
+        JButton okMRestReservasButton = new JButton("OK");
+
+        mRestReservasSuperPanel.add(norteMRestReservasSubPanel, "North");
+        mRestReservasSuperPanel.add(centroMRestReservasSubPanel, "Center");
+        mRestReservasSuperPanel.add(sulMRestReservasSubPanel, "South");
+
+        JPanel norteMRestReservasSSPanel = new JPanel();
+        norteMRestReservasSSPanel.setLayout(new FlowLayout());
+        norteMRestReservasSSPanel.add(mRestReservasLabel);
+        norteMRestReservasSubPanel.add(norteMRestReservasSSPanel, BorderLayout.CENTER);
+        norteMRestReservasSubPanel.add(ptEnMRestReservasButton, BorderLayout.EAST);
+
+
+        JPanel centroMRestReservasSSPanel = new JPanel();
+        centroMRestReservasSSPanel.setLayout(new GridLayout(12, 2));
+        centroMRestReservasSubPanel.add(centroMRestReservasSSPanel);
+        centroMRestReservasSSPanel.add(filtrarMRestReservasLabel);
+        centroMRestReservasSSPanel.add(tiposFiltrosMRestReservasLabel);
+
+        sulMRestReservasSubPanel.setLayout(new FlowLayout());
+        sulMRestReservasSubPanel.add(voltarMRestReservasButton);
+        sulMRestReservasSubPanel.add(okMRestReservasButton);
+
+        voltarMRestReservasButton.addActionListener(a -> {
+            CardLayout cl = (CardLayout) contentor.getLayout();
+            cl.show(contentor, MENURESTAURANTE_CARD);
+            this.setSize(500, 300);
+
+        });
+
+        okMRestReservasButton.addActionListener(e -> {
+            CardLayout cl = (CardLayout) contentor.getLayout();
+            cl.show(contentor, LOGIN_CARD);
+            this.setSize(500, 180);
+        });
+
+
+        this.setVisible(true);
+    }
 }
-
