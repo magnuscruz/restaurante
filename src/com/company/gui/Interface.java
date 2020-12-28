@@ -1,8 +1,30 @@
 package com.company.gui;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
+import java.awt.Container;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.util.Enumeration;
+import java.util.Locale;
+import java.util.Properties;
+import java.util.ResourceBundle;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+
+import org.jdatepicker.impl.JDatePanelImpl;
+import org.jdatepicker.impl.JDatePickerImpl;
+import org.jdatepicker.impl.UtilDateModel;
+
+import com.company.gui.util.DateLabelFormatter;
 
 public class Interface extends JFrame {
     private static final String RESTAURANTE_CARD = "RESTAURANTE";
@@ -897,15 +919,15 @@ public class Interface extends JFrame {
         JPanel sulMRestReservasSubPanel = new JPanel();
 
         JLabel mRestReservasLabel = new JLabel("RESERVAS");
-        JLabel filtrarMRestReservasLabel = new JLabel("Filtrar Reservas");
+        JLabel filtrarMRestReservasLabel = new JLabel("Tipo de Reserva");
+        JLabel filtrarDataRestReservasLabel1 = new JLabel("Inicio do Intervalo");
+        JLabel filtrarDataRestReservasLabel2 = new JLabel("Fim do Intervalo");
 
-        JComboBox tiposFiltrosMRestReservasLabel = new JComboBox();
-        tiposFiltrosMRestReservasLabel.addItem("Data");
-        tiposFiltrosMRestReservasLabel.addItem("Tipo: Presencial");
-        tiposFiltrosMRestReservasLabel.addItem("Tipo: Take-Away");
-        tiposFiltrosMRestReservasLabel.addItem("Valores");
-        tiposFiltrosMRestReservasLabel.addItem("Cliente");
-
+        JComboBox<String> tiposFiltrosMRestReservasField = new JComboBox<>();
+        tiposFiltrosMRestReservasField.addItem("");
+        tiposFiltrosMRestReservasField.addItem("Presencial");
+        tiposFiltrosMRestReservasField.addItem("Take-Away");
+        
 
         JButton ptEnMRestReservasButton = new JButton("PT/EN");
         JButton voltarMRestReservasButton = new JButton("MENU RESTAURANTE");
@@ -921,16 +943,32 @@ public class Interface extends JFrame {
         norteMRestReservasSubPanel.add(norteMRestReservasSSPanel, BorderLayout.CENTER);
         norteMRestReservasSubPanel.add(ptEnMRestReservasButton, BorderLayout.EAST);
 
-
+        UtilDateModel model = new UtilDateModel();
+        
+		// Need this...
+		ResourceBundle b = ResourceBundle.getBundle("Text");
+	
+		Properties p = convertResourceBundleToProperties(b);
+		JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
+		// Don't know about the formatter, but there it is...
+		JDatePickerImpl datePicker1 = new JDatePickerImpl(datePanel, new DateLabelFormatter());
+		JDatePickerImpl datePicker2 = new JDatePickerImpl(datePanel, new DateLabelFormatter());
+		
         JPanel centroMRestReservasSSPanel = new JPanel();
         centroMRestReservasSSPanel.setLayout(new GridLayout(12, 2));
         centroMRestReservasSubPanel.add(centroMRestReservasSSPanel);
         centroMRestReservasSSPanel.add(filtrarMRestReservasLabel);
-        centroMRestReservasSSPanel.add(tiposFiltrosMRestReservasLabel);
+        centroMRestReservasSSPanel.add(tiposFiltrosMRestReservasField);
+        centroMRestReservasSSPanel.add(filtrarDataRestReservasLabel1);
+        centroMRestReservasSSPanel.add(datePicker1);
+        centroMRestReservasSSPanel.add(filtrarDataRestReservasLabel2);
+        centroMRestReservasSSPanel.add(datePicker2);
 
         sulMRestReservasSubPanel.setLayout(new FlowLayout());
         sulMRestReservasSubPanel.add(voltarMRestReservasButton);
         sulMRestReservasSubPanel.add(okMRestReservasButton);
+        
+
 
         voltarMRestReservasButton.addActionListener(a -> {
             CardLayout cl = (CardLayout) contentor.getLayout();
@@ -947,5 +985,21 @@ public class Interface extends JFrame {
 
 
         this.setVisible(true);
+    }
+    
+    /**
+     * Convert ResourceBundle into a Properties object.
+     *
+     * @param resource a resource bundle to convert.
+     * @return Properties a properties version of the resource bundle.
+     */
+    private static Properties convertResourceBundleToProperties(ResourceBundle resource) {
+        Properties properties = new Properties();
+        Enumeration<String> keys = resource.getKeys();
+        while (keys.hasMoreElements()) {
+            String key = keys.nextElement();
+            properties.put(key, resource.getString(key));
+        }
+        return properties;
     }
 }

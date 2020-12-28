@@ -3,4 +3,5 @@ module ProjetoRestaurantes {
 	exports com.company.gui;
 
 	requires java.desktop;
+	requires jdatepicker;
 }
