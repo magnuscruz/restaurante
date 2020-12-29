@@ -1,30 +1,21 @@
 package com.company.gui;
 
+import com.company.gui.util.DateLabelFormatter;
+import org.jdatepicker.impl.JDatePanelImpl;
+import org.jdatepicker.impl.JDatePickerImpl;
+import org.jdatepicker.impl.UtilDateModel;
+
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.KeyEvent;
 import java.util.Enumeration;
-import java.util.Locale;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-
-import org.jdatepicker.impl.JDatePanelImpl;
-import org.jdatepicker.impl.JDatePickerImpl;
-import org.jdatepicker.impl.UtilDateModel;
-
-import com.company.gui.util.DateLabelFormatter;
+import javax.swing.*;
 
 public class Interface extends JFrame {
     private static final String RESTAURANTE_CARD = "RESTAURANTE";
@@ -33,20 +24,15 @@ public class Interface extends JFrame {
     private static final String MENUCLIENTE_CARD = "MENU CLIENTE";
     private static final String MENURESTAURANTE_CARD = "MENU RESTAURANTE";
     private static final String MRESTADICIONARPRATO_CARD = "ADICIONAR PRATO";
-    private static final String MRESTATUALIZARPRATO_CARD = "ATUALIZAR PRATO";
+    private static final String MRESTATUALIZARPRATO_CARD = "ATUALIZAR PRATO DO DIA";
     private static final String MRESTATUALIZARDADOS_CARD = "ATUALIZAR DADOS";
-    private static final String MRESTRESERVSUPERPANEL_CARD = "RESERVAS";
+    private static final String MRESTRESERV_CARD = "HISTÓRICO DE RESERVAS";
+    private static final String MRESTCOMENTARIOS_CARD = "COMENTÁRIOS";
     private static final int LARGURA_LOGIN = 400;
     private static final int ALTURA_LOGIN = 180;
     private static final int LARGURA_PADRAO = 500;
     private static final int ALTURA_PADRAO = 300;
 
-
-// private List<Utilizador> listaUtilizadores = new ArrayList<>();
-// private List<Comentario> listaComentarios = new ArrayList<>();
-//
-// private Utilizador utilizarAtivo;
-// private Utilizador utilizador;
 
     public Interface() {
         ImageIcon logo = new ImageIcon("logo3.png");
@@ -76,6 +62,9 @@ public class Interface extends JFrame {
         mRestAtDadosSuperPanel.setLayout(new BorderLayout());
         JPanel mRestReservasSuperPanel = new JPanel();
         mRestReservasSuperPanel.setLayout(new BorderLayout());
+        JPanel mRestComentariosSuperPanel = new JPanel();
+        mRestComentariosSuperPanel.setLayout(new BorderLayout());
+
 
         construirPanelLogin(this, contentor, loginSuperPanel);
 
@@ -92,9 +81,11 @@ public class Interface extends JFrame {
 
         construirPanelMRestAtPratoDia(this, contentor, loginSuperPanel, mRestAtPratoDiaSuperPanel);
 
-        construirPanelMRestAtDados (this, contentor, loginSuperPanel, mRestAtDadosSuperPanel);
+        construirPanelMRestAtDados(this, contentor, loginSuperPanel, mRestAtDadosSuperPanel);
 
-        construirPanelMRestReservas (this, contentor, loginSuperPanel, mRestReservasSuperPanel);
+        construirPanelMRestReservas(this, contentor, loginSuperPanel, mRestReservasSuperPanel);
+
+        construirPanelMRestComentarios(this, contentor, loginSuperPanel, mRestComentariosSuperPanel);
 
         contentor.add(loginSuperPanel, LOGIN_CARD);
         contentor.add(registarNovoClienteSuperPanel, CLIENTE_CARD);
@@ -104,7 +95,8 @@ public class Interface extends JFrame {
         contentor.add(mRestAdPratoSuperPanel, MRESTADICIONARPRATO_CARD);
         contentor.add(mRestAtPratoDiaSuperPanel, MRESTATUALIZARPRATO_CARD);
         contentor.add(mRestAtDadosSuperPanel, MRESTATUALIZARDADOS_CARD);
-        contentor.add(mRestReservasSuperPanel, MRESTRESERVSUPERPANEL_CARD);
+        contentor.add(mRestReservasSuperPanel, MRESTRESERV_CARD);
+        contentor.add(mRestComentariosSuperPanel, MRESTCOMENTARIOS_CARD);
 
 
     }
@@ -534,7 +526,7 @@ public class Interface extends JFrame {
         JButton mRestAtualizarPratoDiaButton = new JButton("ATUALIZAR PRATO DO DIA");
         JButton mRestAtualizarDadosButton = new JButton("ATUALIZAR DADOS");
         JButton mRestReservasButton = new JButton("RESERVAS");
-        JButton consultarComentarios = new JButton("CONSULTAR COMENTÁRIOS");
+        JButton mRestConsultarComentariosButton = new JButton("CONSULTAR COMENTÁRIOS");
         JButton responderComentarios = new JButton("RESPONDER COMENTÁRIOS");
         JButton pontuacaoMedia = new JButton("PONTUAÇÃO MÉDIA");
 
@@ -560,7 +552,7 @@ public class Interface extends JFrame {
         centroNovoRestauranteSSPanelForm.add(mRestAtualizarPratoDiaButton);
         centroNovoRestauranteSSPanelForm.add(mRestAtualizarDadosButton);
         centroNovoRestauranteSSPanelForm.add(mRestReservasButton);
-        centroNovoRestauranteSSPanelForm.add(consultarComentarios);
+        centroNovoRestauranteSSPanelForm.add(mRestConsultarComentariosButton);
         centroNovoRestauranteSSPanelForm.add(responderComentarios);
         centroNovoRestauranteSSPanelForm.add(pontuacaoMedia);
 
@@ -590,7 +582,7 @@ public class Interface extends JFrame {
 
         mRestReservasButton.addActionListener(a -> {
             CardLayout cl = (CardLayout) contentor.getLayout();
-            cl.show(contentor, MRESTRESERVSUPERPANEL_CARD);
+            cl.show(contentor, MRESTRESERV_CARD);
             this.setSize(LARGURA_PADRAO, 350);
 
         });
@@ -601,10 +593,23 @@ public class Interface extends JFrame {
             this.setSize(LARGURA_PADRAO, 350);
 
 
+        });
+
+        mRestReservasButton.addActionListener(a -> {
+            CardLayout cl = (CardLayout) contentor.getLayout();
+            cl.show(contentor, MRESTCOMENTARIOS_CARD);
+            this.setSize(LARGURA_PADRAO, 350);
 
 
         });
 
+        mRestConsultarComentariosButton.addActionListener(a -> {
+            CardLayout cl = (CardLayout) contentor.getLayout();
+            cl.show(contentor, MRESTCOMENTARIOS_CARD);
+            this.setSize(LARGURA_PADRAO, 350);
+
+
+        });
 
         sairMenuRestauranteButton.addActionListener(a -> {
             CardLayout cl = (CardLayout) contentor.getLayout();
@@ -613,77 +618,79 @@ public class Interface extends JFrame {
 
         });
     }
-///////////MENU RESTAURANTE - ADICIONAR PRATO//////////////////////
-        private void construirPanelMRestAdPrato(Interface janela, Container contentor, JPanel loginSuperPanel, JPanel mRestAdPratoSuperPanel) {
+
+    ///////////MENU RESTAURANTE - ADICIONAR PRATO//////////////////////
+    private void construirPanelMRestAdPrato(Interface janela, Container contentor, JPanel loginSuperPanel, JPanel mRestAdPratoSuperPanel) {
 
 
-            /////SUBPAINEIS//////
-            JPanel norteAdPratoSubPanel = new JPanel();
-            norteAdPratoSubPanel.setLayout(new BorderLayout());
-            JPanel centroAdPratoSubPanel = new JPanel();
-            JPanel sulAdPratoSubPanel = new JPanel();
+        /////SUBPAINEIS//////
+        JPanel norteAdPratoSubPanel = new JPanel();
+        norteAdPratoSubPanel.setLayout(new BorderLayout());
+        JPanel centroAdPratoSubPanel = new JPanel();
+        JPanel sulAdPratoSubPanel = new JPanel();
 
-            JLabel adPratoLabel = new JLabel("ADICIONAR PRATO");
-            JLabel nomePratoLabel = new JLabel("Nome Prato");
-            JLabel descricaoPratoLabel = new JLabel("Descrição");
-            JLabel precoPratoLabel = new JLabel("Preço");
+        JLabel adPratoLabel = new JLabel("ADICIONAR PRATO");
+        JLabel nomePratoLabel = new JLabel("Nome Prato");
+        JLabel descricaoPratoLabel = new JLabel("Descrição");
+        JLabel precoPratoLabel = new JLabel("Preço");
 
-            JTextField nomePratoText = new JTextField(20);
-            JTextField descricaoPratoText = new JTextField(20);
-            JTextField precoPratoText = new JTextField(10);
-
-
-            JButton ptEnAdPratoButton = new JButton("PT/EN");
-            JButton voltarMenuRestAdPratoButton = new JButton("MENU RESTAURANTE");
-            JButton confirmarAdPratoButton = new JButton("CONFIRMAR");
+        JTextField nomePratoText = new JTextField(20);
+        JTextField descricaoPratoText = new JTextField(20);
+        JTextField precoPratoText = new JTextField(10);
 
 
-            JComboBox tipoPratoAd = new JComboBox();
-            tipoPratoAd.addItem("Carta");
-            tipoPratoAd.addItem("Prato do dia");
+        JButton ptEnAdPratoButton = new JButton("PT/EN");
+        JButton voltarMenuRestAdPratoButton = new JButton("MENU RESTAURANTE");
+        JButton confirmarAdPratoButton = new JButton("CONFIRMAR");
 
 
-            mRestAdPratoSuperPanel.add(norteAdPratoSubPanel, "North");
-            mRestAdPratoSuperPanel.add(centroAdPratoSubPanel, "Center");
-            mRestAdPratoSuperPanel.add(sulAdPratoSubPanel, "South");
-
-            JPanel norteAdPratoSSPanel = new JPanel();
-            norteAdPratoSSPanel.setLayout(new FlowLayout());
-            norteAdPratoSSPanel.add(adPratoLabel);
-            norteAdPratoSubPanel.add(norteAdPratoSSPanel, BorderLayout.CENTER);
-            norteAdPratoSubPanel.add(ptEnAdPratoButton, BorderLayout.EAST);
-
-            JPanel centroAdPratoSSPanelForm = new JPanel();
-            centroAdPratoSSPanelForm.setLayout(new GridLayout(5, 2));
-            centroAdPratoSubPanel.add(centroAdPratoSSPanelForm);
-            centroAdPratoSubPanel.add(tipoPratoAd);
-            centroAdPratoSSPanelForm.add(nomePratoLabel);
-            centroAdPratoSSPanelForm.add(nomePratoText);
-            centroAdPratoSSPanelForm.add(descricaoPratoLabel);
-            centroAdPratoSSPanelForm.add(descricaoPratoText);
-            centroAdPratoSSPanelForm.add(precoPratoLabel);
-            centroAdPratoSSPanelForm.add(precoPratoText);
-
-            sulAdPratoSubPanel.setLayout(new FlowLayout());
-            sulAdPratoSubPanel.add(voltarMenuRestAdPratoButton);
-            sulAdPratoSubPanel.add(confirmarAdPratoButton);
+        JComboBox tipoPratoAd = new JComboBox();
+        tipoPratoAd.addItem("Carta");
+        tipoPratoAd.addItem("Prato do dia");
 
 
-            voltarMenuRestAdPratoButton.addActionListener(a -> {
-                CardLayout cl = (CardLayout) contentor.getLayout();
-                cl.show(contentor, MENURESTAURANTE_CARD);
-                this.setSize(LARGURA_PADRAO, ALTURA_PADRAO);
+        mRestAdPratoSuperPanel.add(norteAdPratoSubPanel, "North");
+        mRestAdPratoSuperPanel.add(centroAdPratoSubPanel, "Center");
+        mRestAdPratoSuperPanel.add(sulAdPratoSubPanel, "South");
 
-            });
+        JPanel norteAdPratoSSPanel = new JPanel();
+        norteAdPratoSSPanel.setLayout(new FlowLayout());
+        norteAdPratoSSPanel.add(adPratoLabel);
+        norteAdPratoSubPanel.add(norteAdPratoSSPanel, BorderLayout.CENTER);
+        norteAdPratoSubPanel.add(ptEnAdPratoButton, BorderLayout.EAST);
 
-            confirmarAdPratoButton.addActionListener(a -> {
-                CardLayout cl = (CardLayout) contentor.getLayout();
-                cl.show(contentor, MENURESTAURANTE_CARD);
-                this.setSize(LARGURA_PADRAO, ALTURA_PADRAO);
+        JPanel centroAdPratoSSPanelForm = new JPanel();
+        centroAdPratoSSPanelForm.setLayout(new GridLayout(5, 2));
+        centroAdPratoSubPanel.add(centroAdPratoSSPanelForm);
+        centroAdPratoSubPanel.add(tipoPratoAd);
+        centroAdPratoSSPanelForm.add(nomePratoLabel);
+        centroAdPratoSSPanelForm.add(nomePratoText);
+        centroAdPratoSSPanelForm.add(descricaoPratoLabel);
+        centroAdPratoSSPanelForm.add(descricaoPratoText);
+        centroAdPratoSSPanelForm.add(precoPratoLabel);
+        centroAdPratoSSPanelForm.add(precoPratoText);
 
-            });
+        sulAdPratoSubPanel.setLayout(new FlowLayout());
+        sulAdPratoSubPanel.add(voltarMenuRestAdPratoButton);
+        sulAdPratoSubPanel.add(confirmarAdPratoButton);
 
-        }
+
+        voltarMenuRestAdPratoButton.addActionListener(a -> {
+            CardLayout cl = (CardLayout) contentor.getLayout();
+            cl.show(contentor, MENURESTAURANTE_CARD);
+            this.setSize(LARGURA_PADRAO, ALTURA_PADRAO);
+
+        });
+
+        confirmarAdPratoButton.addActionListener(a -> {
+            CardLayout cl = (CardLayout) contentor.getLayout();
+            cl.show(contentor, MENURESTAURANTE_CARD);
+            this.setSize(LARGURA_PADRAO, ALTURA_PADRAO);
+
+        });
+
+    }
+
     /////////MENU RESTAURANTE – ATUALIZAR PRATO//////////////////////
     private void construirPanelMRestAtPratoDia(Interface janela, Container contentor, JPanel loginSuperPanel, JPanel mRestAtPratoSuperPanel) {
 
@@ -746,8 +753,9 @@ public class Interface extends JFrame {
 
         });
     }
+
     ///////////////////MENU RESTAURANTE - ATUALIZAR DADOS /////////////////////////
-    private void construirPanelMRestAtDados (Interface janela, Container contentor, JPanel loginSuperPanel, JPanel mRestAtDadosSuperPanel) {
+    private void construirPanelMRestAtDados(Interface janela, Container contentor, JPanel loginSuperPanel, JPanel mRestAtDadosSuperPanel) {
 
 
         /////SUBPAINEIS//////
@@ -827,27 +835,27 @@ public class Interface extends JFrame {
 
         JPanel centroAtDadosRestSSPanelForm1 = new JPanel();
         centroAtDadosRestSSPanelForm1.setLayout(new FlowLayout());
-        centroMRestAtDadosSubPanel.add(centroAtDadosRestSSPanelForm1);
+        centroMRestAtDadosSubPanel.add(centroAtDadosRestSSPanelForm1, BorderLayout.WEST);
 
         JPanel centroAtDadosRestSSPanelForm2 = new JPanel();
         centroAtDadosRestSSPanelForm2.setLayout(new FlowLayout());
-        centroMRestAtDadosSubPanel.add(centroAtDadosRestSSPanelForm2, BorderLayout.CENTER);
+        centroMRestAtDadosSubPanel.add(centroAtDadosRestSSPanelForm2, BorderLayout.WEST);
 
         JPanel centroAtDadosRestSSPanelForm3 = new JPanel();
         //centroAtDadosRestSSPanelForm3.setLayout(new FlowLayout());
-        centroMRestAtDadosSubPanel.add(centroAtDadosRestSSPanelForm3, BorderLayout.CENTER);
+        centroMRestAtDadosSubPanel.add(centroAtDadosRestSSPanelForm3, BorderLayout.WEST);
 
         JPanel centroAtDadosRestSSPanelForm4 = new JPanel();
         centroAtDadosRestSSPanelForm4.setLayout(new FlowLayout());
-        centroMRestAtDadosSubPanel.add(centroAtDadosRestSSPanelForm4, BorderLayout.CENTER);
+        centroMRestAtDadosSubPanel.add(centroAtDadosRestSSPanelForm4, BorderLayout.WEST);
 
         JPanel centroAtDadosRestSSPanelForm5 = new JPanel();
         centroAtDadosRestSSPanelForm5.setLayout(new FlowLayout());
-        centroMRestAtDadosSubPanel.add(centroAtDadosRestSSPanelForm5, BorderLayout.CENTER);
+        centroMRestAtDadosSubPanel.add(centroAtDadosRestSSPanelForm5, BorderLayout.WEST);
 
         JPanel centroAtDadosRestSSPanelForm6 = new JPanel();
         centroAtDadosRestSSPanelForm6.setLayout(new FlowLayout());
-        centroMRestAtDadosSubPanel.add(centroAtDadosRestSSPanelForm6, BorderLayout.CENTER);
+        centroMRestAtDadosSubPanel.add(centroAtDadosRestSSPanelForm6, BorderLayout.WEST);
 
         centroAtDadosRestSSPanelForm1.add(nomeAtDadosRestLabel);
         centroAtDadosRestSSPanelForm1.add(nomeAtDadosRestText);
@@ -909,7 +917,7 @@ public class Interface extends JFrame {
     }
 
     //////MENU RESTAURANTE – RESERVAS//////////
-    private void construirPanelMRestReservas (Interface janela, Container contentor, JPanel loginSuperPanel, JPanel mRestReservasSuperPanel) {
+    private void construirPanelMRestReservas(Interface janela, Container contentor, JPanel loginSuperPanel, JPanel mRestReservasSuperPanel) {
 
 
         /////SUBPAINEIS//////
@@ -918,20 +926,56 @@ public class Interface extends JFrame {
         JPanel centroMRestReservasSubPanel = new JPanel();
         JPanel sulMRestReservasSubPanel = new JPanel();
 
-        JLabel mRestReservasLabel = new JLabel("RESERVAS");
-        JLabel filtrarMRestReservasLabel = new JLabel("Tipo de Reserva");
-        JLabel filtrarDataRestReservasLabel1 = new JLabel("Inicio do Intervalo");
-        JLabel filtrarDataRestReservasLabel2 = new JLabel("Fim do Intervalo");
+        JLabel mRestReservasLabel = new JLabel("HISTÓRICO DE RESERVAS");
+        JLabel usernameMRestReservasLabel = new JLabel("Username");
+        //JLabel filtrarTipomRestResLabel = new JLabel("Escolha a opção em que a lista será mostrada:");
+        JLabel filtrarDataInicioMRestReservasLabel = new JLabel("Início");
+        JLabel filtrarDataFimMRestReservasLabel = new JLabel("Fim");
 
-        JComboBox<String> tiposFiltrosMRestReservasField = new JComboBox<>();
-        tiposFiltrosMRestReservasField.addItem("");
-        tiposFiltrosMRestReservasField.addItem("Presencial");
-        tiposFiltrosMRestReservasField.addItem("Take-Away");
-        
+
+        JTextField usernameMRestReservasText = new JTextField(20);
+
+        JCheckBox cem = new JCheckBox("Até 100");
+        cem.setMnemonic(KeyEvent.VK_C);
+        JCheckBox duzentos = new JCheckBox("100-200");
+        duzentos.setMnemonic(KeyEvent.VK_C);
+        JCheckBox trezentos = new JCheckBox("200-300");
+        trezentos.setMnemonic(KeyEvent.VK_C);
+        JCheckBox quatrocentos = new JCheckBox("+ de 300");
+        quatrocentos.setMnemonic(KeyEvent.VK_C);
+
+
+        JRadioButton filtrarIntervDatasMRestResRButton = new JRadioButton("DATAS");
+        //todo verificar a questão do calendário
+        JRadioButton filtrarTipomRestResRButton = new JRadioButton("TIPO");
+        JRadioButton filtrarIntervValmRestResRButton = new JRadioButton("VALORES");
+        JRadioButton filtrarClientemRestResRButton = new JRadioButton("CLIENTE");
+
+        JComboBox<String> filtrosTipoMRestReservasJCBox = new JComboBox<>();
+        filtrosTipoMRestReservasJCBox.addItem("");
+        filtrosTipoMRestReservasJCBox.addItem("Presencial");
+        filtrosTipoMRestReservasJCBox.addItem("Take-Away");
+
+
+        ButtonGroup group = new ButtonGroup();
+        group.add(filtrarIntervDatasMRestResRButton);
+        group.add(filtrarTipomRestResRButton);
+        group.add(filtrarIntervValmRestResRButton);
+        group.add(filtrarClientemRestResRButton);
 
         JButton ptEnMRestReservasButton = new JButton("PT/EN");
         JButton voltarMRestReservasButton = new JButton("MENU RESTAURANTE");
         JButton okMRestReservasButton = new JButton("OK");
+
+        //Adição do calendário
+        UtilDateModel model = new UtilDateModel();
+
+        ResourceBundle b = ResourceBundle.getBundle("Text");
+
+        Properties p = convertResourceBundleToProperties(b);
+        JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
+        JDatePickerImpl datePicker1 = new JDatePickerImpl(datePanel, new DateLabelFormatter());
+        JDatePickerImpl datePicker2 = new JDatePickerImpl(datePanel, new DateLabelFormatter());
 
         mRestReservasSuperPanel.add(norteMRestReservasSubPanel, "North");
         mRestReservasSuperPanel.add(centroMRestReservasSubPanel, "Center");
@@ -943,63 +987,185 @@ public class Interface extends JFrame {
         norteMRestReservasSubPanel.add(norteMRestReservasSSPanel, BorderLayout.CENTER);
         norteMRestReservasSubPanel.add(ptEnMRestReservasButton, BorderLayout.EAST);
 
-        UtilDateModel model = new UtilDateModel();
-        
-		// Need this...
-		ResourceBundle b = ResourceBundle.getBundle("Text");
-	
-		Properties p = convertResourceBundleToProperties(b);
-		JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
-		// Don't know about the formatter, but there it is...
-		JDatePickerImpl datePicker1 = new JDatePickerImpl(datePanel, new DateLabelFormatter());
-		JDatePickerImpl datePicker2 = new JDatePickerImpl(datePanel, new DateLabelFormatter());
-		
         JPanel centroMRestReservasSSPanel = new JPanel();
-        centroMRestReservasSSPanel.setLayout(new GridLayout(12, 2));
-        centroMRestReservasSubPanel.add(centroMRestReservasSSPanel);
-        centroMRestReservasSSPanel.add(filtrarMRestReservasLabel);
-        centroMRestReservasSSPanel.add(tiposFiltrosMRestReservasField);
-        centroMRestReservasSSPanel.add(filtrarDataRestReservasLabel1);
-        centroMRestReservasSSPanel.add(datePicker1);
-        centroMRestReservasSSPanel.add(filtrarDataRestReservasLabel2);
-        centroMRestReservasSSPanel.add(datePicker2);
+        centroMRestReservasSSPanel.setLayout(new FlowLayout());
+        centroMRestReservasSubPanel.add(centroMRestReservasSSPanel, BorderLayout.WEST);
+
+        JPanel centroMRestReservasSSPanel1 = new JPanel();
+        centroMRestReservasSSPanel1.setLayout(new FlowLayout());
+        centroMRestReservasSubPanel.add(centroMRestReservasSSPanel1, BorderLayout.WEST);
+
+        JPanel centroMRestReservasSSPanel2 = new JPanel();
+        centroMRestReservasSSPanel2.setLayout(new FlowLayout());
+        centroMRestReservasSubPanel.add(centroMRestReservasSSPanel2, BorderLayout.WEST);
+
+        JPanel centroMRestReservasSSPanel2A = new JPanel();
+        centroMRestReservasSSPanel2A.setLayout(new GridLayout(1,1));
+        centroMRestReservasSubPanel.add(centroMRestReservasSSPanel2A, BorderLayout.WEST);
+
+        JPanel centroMRestReservasSSPanel3 = new JPanel();
+        centroMRestReservasSSPanel3.setLayout(new FlowLayout());
+        centroMRestReservasSubPanel.add(centroMRestReservasSSPanel3, BorderLayout.WEST);
+
+        JPanel centroMRestReservasSSPanel4 = new JPanel();
+        centroMRestReservasSSPanel4.setLayout(new FlowLayout());
+        centroMRestReservasSubPanel.add(centroMRestReservasSSPanel4, BorderLayout.WEST);
+
+        centroMRestReservasSSPanel.add(filtrarIntervDatasMRestResRButton);
+        centroMRestReservasSSPanel1.add(filtrarDataInicioMRestReservasLabel);
+        centroMRestReservasSSPanel1.add(datePicker1);
+        centroMRestReservasSSPanel1.add(filtrarDataFimMRestReservasLabel);
+        centroMRestReservasSSPanel1.add(datePicker2);
+
+        centroMRestReservasSSPanel2.add(filtrarTipomRestResRButton);
+        centroMRestReservasSSPanel2A.add(filtrosTipoMRestReservasJCBox);
+
+        centroMRestReservasSSPanel3.add(filtrarIntervValmRestResRButton);
+        centroMRestReservasSSPanel3.add(cem);
+        centroMRestReservasSSPanel3.add(duzentos);
+        centroMRestReservasSSPanel3.add(trezentos);
+        centroMRestReservasSSPanel3.add(quatrocentos);
+
+        centroMRestReservasSSPanel4.add(filtrarClientemRestResRButton);
+        centroMRestReservasSSPanel4.add(usernameMRestReservasLabel);
+        centroMRestReservasSSPanel4.add(usernameMRestReservasText);
 
         sulMRestReservasSubPanel.setLayout(new FlowLayout());
         sulMRestReservasSubPanel.add(voltarMRestReservasButton);
         sulMRestReservasSubPanel.add(okMRestReservasButton);
-        
 
 
         voltarMRestReservasButton.addActionListener(a -> {
             CardLayout cl = (CardLayout) contentor.getLayout();
             cl.show(contentor, MENURESTAURANTE_CARD);
-            this.setSize(500, 300);
+            this.setSize(LARGURA_PADRAO, ALTURA_PADRAO);
 
         });
 
+        //todo ver os encaminhamentos
         okMRestReservasButton.addActionListener(e -> {
+            CardLayout cl = (CardLayout) contentor.getLayout();
+            cl.show(contentor, LOGIN_CARD);
+            this.setSize(500, 180);
+        });
+    }
+        /**
+         * Convert ResourceBundle into a Properties object.
+         *
+         * @param resource a resource bundle to convert.
+         * @return Properties a properties version of the resource bundle.
+         */
+        private static Properties convertResourceBundleToProperties(ResourceBundle resource) {
+            Properties properties = new Properties();
+            Enumeration<String> keys = resource.getKeys();
+            while (keys.hasMoreElements()) {
+                String key = keys.nextElement();
+                properties.put(key, resource.getString(key));
+            }
+            return properties;
+        }
+
+
+    //////MENU RESTAURANTE – COMENTÁRIOS//////////
+    private void construirPanelMRestComentarios(Interface janela, Container contentor,  JPanel loginSuperPanel, JPanel mRestComentariosSuperPanel) {
+
+
+        /////SUBPAINEIS//////
+        JPanel norteMRestComentariosSubPanel = new JPanel();
+        norteMRestComentariosSubPanel.setLayout(new BorderLayout());
+        JPanel centroMRestComentariosSubPanel = new JPanel();
+        JPanel sulMRestComentariosSubPanel = new JPanel();
+
+        JLabel mRestComentariosLabel = new JLabel("COMENTÁRIOS RECEBIDOS");
+
+
+        String[] nomeColunasMRestComentarios = new String[] {
+                "Usarname", "Comentário", "Pontuação"
+        };
+
+        //actual data for the table in a 2d array
+        Object[][] data = new Object[][] {
+                {"Nuno", "Muito bom", 4.0 },
+                {"Manuel", "Excelente", 5.0 },
+                {"André", "Pouco espaço interno", 3.0 },
+        };
+        //criação da tabela
+        JTable tabela = new JTable(data, nomeColunasMRestComentarios);
+
+        JPopupMenu popupMenu = new JPopupMenu();
+        JMenuItem menuItemAdd = new JMenuItem("Responder");
+
+        JButton ptEnMRestReservasButton = new JButton("PT/EN");
+        JButton voltarMRestComentariosButton = new JButton("MENU RESTAURANTE");
+        JButton responderMRestComentariosButton = new JButton("OK");
+
+        mRestComentariosSuperPanel.add(norteMRestComentariosSubPanel, "North");
+        mRestComentariosSuperPanel.add(centroMRestComentariosSubPanel, "Center");
+        mRestComentariosSuperPanel.add(sulMRestComentariosSubPanel, "South");
+
+        JPanel norteMRestComentariosSSPanel = new JPanel();
+        norteMRestComentariosSSPanel.setLayout(new FlowLayout());
+        norteMRestComentariosSSPanel.add(mRestComentariosLabel);
+        norteMRestComentariosSubPanel.add(norteMRestComentariosSSPanel, BorderLayout.CENTER);
+        norteMRestComentariosSubPanel.add(ptEnMRestReservasButton, BorderLayout.EAST);
+
+        JPanel centroMRestReservasSSPanel1 = new JPanel();
+        centroMRestReservasSSPanel1.setLayout(new FlowLayout());
+        centroMRestComentariosSubPanel.add(tabela, BorderLayout.WEST);
+
+
+
+//        JPanel centroMRestReservasSSPanel2 = new JPanel();
+//        centroMRestReservasSSPanel2.setLayout(new FlowLayout());
+//        centroMRestComentariosSubPanel.add(centroMRestReservasSSPanel2, BorderLayout.WEST);
+//
+//        JPanel centroMRestReservasSSPanel3 = new JPanel();
+//        centroMRestReservasSSPanel3.setLayout(new FlowLayout());
+//        centroMRestComentariosSubPanel.add(centroMRestReservasSSPanel3 , BorderLayout.WEST);
+//
+//        JPanel centroMRestReservasSSPanel4 = new JPanel();
+//        centroMRestReservasSSPanel4.setLayout(new FlowLayout());
+//        centroMRestComentariosSubPanel.add(centroMRestReservasSSPanel4, BorderLayout.WEST);
+//
+//        centroMRestReservasSSPanel1.add(filtrarIntervDatasmRestResRButton);
+//
+//        centroMRestReservasSSPanel2.add(filtrarTipomRestResRButton);
+//        //centroMRestReservasSSPanel1.add(filtrarTipomRestResLabel);
+//        centroMRestReservasSSPanel2.add(filtrosTipoMRestReservasJCBox);
+//
+//
+//        centroMRestReservasSSPanel3.add(filtrarIntervValmRestResRButton);
+//        centroMRestReservasSSPanel3.add(cem);
+//        centroMRestReservasSSPanel3.add(duzentos);
+//        centroMRestReservasSSPanel3.add(trezentos);
+//        centroMRestReservasSSPanel3.add(quatrocentos);
+//
+//
+//        centroMRestReservasSSPanel4.add(filtrarClientemRestResRButton);
+//        centroMRestReservasSSPanel4.add(usernameMRestReservasLabel);
+//        centroMRestReservasSSPanel4.add(usernameMRestReservasText);
+
+        sulMRestComentariosSubPanel.setLayout(new FlowLayout());
+        sulMRestComentariosSubPanel.add(voltarMRestComentariosButton);
+        sulMRestComentariosSubPanel.add(responderMRestComentariosButton);
+
+
+        voltarMRestComentariosButton.addActionListener(a -> {
+            CardLayout cl = (CardLayout) contentor.getLayout();
+            cl.show(contentor, MENURESTAURANTE_CARD);
+            this.setSize(LARGURA_PADRAO, ALTURA_PADRAO);
+
+        });
+
+        //todo ver os encaminhamentos
+        responderMRestComentariosButton.addActionListener(e -> {
             CardLayout cl = (CardLayout) contentor.getLayout();
             cl.show(contentor, LOGIN_CARD);
             this.setSize(500, 180);
         });
 
 
+
         this.setVisible(true);
-    }
-    
-    /**
-     * Convert ResourceBundle into a Properties object.
-     *
-     * @param resource a resource bundle to convert.
-     * @return Properties a properties version of the resource bundle.
-     */
-    private static Properties convertResourceBundleToProperties(ResourceBundle resource) {
-        Properties properties = new Properties();
-        Enumeration<String> keys = resource.getKeys();
-        while (keys.hasMoreElements()) {
-            String key = keys.nextElement();
-            properties.put(key, resource.getString(key));
-        }
-        return properties;
     }
 }
