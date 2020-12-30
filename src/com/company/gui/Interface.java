@@ -125,7 +125,7 @@ public class Interface extends JFrame {
 
         construirPanelMCliFazerRes(this, contentor, loginSuperPanel, mCliFazerResSuperPanel);
 
-        //construirPanelMCliFazerResP(this, contentor, loginSuperPanel, mCliFazerResPSuperPanel);
+        construirPanelMCliFazerResP(this, contentor, loginSuperPanel, mCliFazerResPSuperPanel);
 
         construirPanelMCliFazerResTA(this, contentor, loginSuperPanel, mCliFazerResTASuperPanel);
 
@@ -1617,8 +1617,8 @@ public class Interface extends JFrame {
 
         voltarCliMCliButton.addActionListener(a -> {
             CardLayout cl = (CardLayout) contentor.getLayout();
-            cl.show(contentor, LOGIN_CARD);
-            this.setSize(LARGURA_LOGIN, ALTURA_LOGIN);
+            cl.show(contentor, MENUCLIENTE_CARD);
+            this.setSize(LARGURA_PADRAO, ALTURA_PADRAO);
         });
     }
 
@@ -1753,18 +1753,8 @@ public class Interface extends JFrame {
         JLabel mCliTitFResLabel = new JLabel("FAZER RESERVAS");
         JLabel tipoResMCliFResLabel = new JLabel("TIPO DE RESERVA:");
         JLabel nomeResMCliFResLabel = new JLabel("RESTAURANTE:");
-//        JLabel diaMCliFResLabel = new JLabel("DIA");
-//        JLabel horaMCliFResLabel = new JLabel("HORA");
-//        JLabel horaDeMCliFResLabel = new JLabel("De");
-//        JLabel horaAteMCliFResLabel = new JLabel("Até");
-//        JLabel qtdePessoasMCliFResLabel = new JLabel("QUANTIDADE DE PESSOAS");
-//        JLabel msgMCliFResLabel = new JLabel("Contatar diretamente o restaurante no caso de reservas para mais de 20 pessoas");
-//        JLabel qtdePratosMCliFResLabel = new JLabel("QUANTIDADE");
-//        JLabel pratosMCliFResLabel = new JLabel("PRATOS");
-//
 
-        JTextField nomeResMCliFResText = new JTextField(20);
-
+        JTextField nomeResMCliFResText = new JTextField(25);
 
         JRadioButton presencialMCliFResRButton = new JRadioButton("PRESENCIAL");
         JRadioButton takeAwayMCliFResRButton = new JRadioButton("TAKE-AWAY");
@@ -1773,107 +1763,9 @@ public class Interface extends JFrame {
         group.add(presencialMCliFResRButton);
         group.add(takeAwayMCliFResRButton);
 
-
-//        JComboBox horaDeMCliFResCBox = new JComboBox();
-//        horaDeMCliFResCBox.addItem("");
-//        horaDeMCliFResCBox.addItem("11h");
-//        horaDeMCliFResCBox.addItem("11h30");
-//        horaDeMCliFResCBox.addItem("12h");
-//        horaDeMCliFResCBox.addItem("12h30");
-//        horaDeMCliFResCBox.addItem("13h");
-//        horaDeMCliFResCBox.addItem("13h30");
-//        horaDeMCliFResCBox.addItem("14h");
-//
-//
-//        JComboBox horaAteMCliFResCBox = new JComboBox();
-//        horaAteMCliFResCBox.addItem("");
-//        horaAteMCliFResCBox.addItem("12h");
-//        horaAteMCliFResCBox.addItem("12h30");
-//        horaAteMCliFResCBox.addItem("13h");
-//        horaAteMCliFResCBox.addItem("13h30");
-//        horaAteMCliFResCBox.addItem("14h");
-//        horaAteMCliFResCBox.addItem("14h30");
-//        horaAteMCliFResCBox.addItem("15h");
-//        horaAteMCliFResCBox.addItem("15h30");
-//
-//
-//        JComboBox qtdePessoasMCliFResCBox = new JComboBox();
-//        qtdePessoasMCliFResCBox.addItem("");
-//        qtdePessoasMCliFResCBox.addItem("1");
-//        qtdePessoasMCliFResCBox.addItem("2");
-//        qtdePessoasMCliFResCBox.addItem("3");
-//        qtdePessoasMCliFResCBox.addItem("4");
-//        qtdePessoasMCliFResCBox.addItem("5");
-//        qtdePessoasMCliFResCBox.addItem("6");
-//        qtdePessoasMCliFResCBox.addItem("7");
-//        qtdePessoasMCliFResCBox.addItem("8");
-//        qtdePessoasMCliFResCBox.addItem("9");
-//        qtdePessoasMCliFResCBox.addItem("10");
-//        qtdePessoasMCliFResCBox.addItem("11");
-//        qtdePessoasMCliFResCBox.addItem("12");
-//        qtdePessoasMCliFResCBox.addItem("13");
-//        qtdePessoasMCliFResCBox.addItem("14");
-//        qtdePessoasMCliFResCBox.addItem("15");
-//        qtdePessoasMCliFResCBox.addItem("16");
-//        qtdePessoasMCliFResCBox.addItem("17");
-//        qtdePessoasMCliFResCBox.addItem("18");
-//        qtdePessoasMCliFResCBox.addItem("19");
-//        qtdePessoasMCliFResCBox.addItem("20");
-//
-//
-//        JComboBox qtdePratosMCliFResCBox = new JComboBox();
-//        qtdePratosMCliFResCBox.addItem("");
-//        qtdePratosMCliFResCBox.addItem("1");
-//        qtdePratosMCliFResCBox.addItem("2");
-//        qtdePratosMCliFResCBox.addItem("3");
-//        qtdePratosMCliFResCBox.addItem("4");
-//        qtdePratosMCliFResCBox.addItem("5");
-//        qtdePratosMCliFResCBox.addItem("6");
-//        qtdePratosMCliFResCBox.addItem("7");
-//        qtdePratosMCliFResCBox.addItem("8");
-//        qtdePratosMCliFResCBox.addItem("9");
-//        qtdePratosMCliFResCBox.addItem("10");
-//        qtdePratosMCliFResCBox.addItem("11");
-//        qtdePratosMCliFResCBox.addItem("12");
-//        qtdePratosMCliFResCBox.addItem("13");
-//        qtdePratosMCliFResCBox.addItem("14");
-//        qtdePratosMCliFResCBox.addItem("15");
-//        qtdePratosMCliFResCBox.addItem("16");
-//        qtdePratosMCliFResCBox.addItem("17");
-//        qtdePratosMCliFResCBox.addItem("18");
-//        qtdePratosMCliFResCBox.addItem("19");
-//        qtdePratosMCliFResCBox.addItem("20");
-//
-//
-////todo possibilitar que o prato possa ser selecionado
-//        String[] nomeColunasMCliFRes = new String[]{
-//                "NOME", "DESCRIÇÃO", "PREÇO", "TIPO"
-//        };
-//
-//        Object[][] dados = new Object[][]{
-//                {"NOME", "DESCRIÇÃO", "PREÇO", "TIPO"},
-//                {"Sardinha", "Assada", "15.0", "Carta"},
-//                {"Peru", "Ensopado", "15.0", "Prato do Dia"},
-//                {"Bifana", "Frita", "15.0", "Carta"},
-//
-//        };
-//        //criação da tabela
-//        JTable tabelaMCliFRes = new JTable(dados, nomeColunasMCliFRes);
-
         JButton ptEnMCliFResButton = new JButton("PT/EN");
         JButton voltarMCliFResButton = new JButton("MENU CLIENTE");
-        JButton confirmarMCliFResButton = new JButton("OK");
-
-//        //Adição do calendário
-//        UtilDateModel model1 = new UtilDateModel();
-//        UtilDateModel model6 = new UtilDateModel();
-//
-//        ResourceBundle b = ResourceBundle.getBundle("Text");
-//
-//        Properties p = convertResourceBundleToProperties(b);
-//        JDatePanelImpl datePanel5 = new JDatePanelImpl(model6, p);
-//        JDatePickerImpl datePicker6 = new JDatePickerImpl(datePanel5, new DateLabelFormatter());
-//
+        //JButton confirmarMCliFResButton = new JButton("OK");
 
         mCliFazerResSuperPanel.add(norteMCliFResSubPanel, "North");
         mCliFazerResSuperPanel.add(centroMCliFResSubPanel, "Center");
@@ -1897,52 +1789,19 @@ public class Interface extends JFrame {
         centroMCliFResSSPanel2.setLayout(new FlowLayout());
         centroMCliFResSubPanel.add(centroMCliFResSSPanel2, BorderLayout.WEST);
 
-//        JPanel centroMCliFResSSPanel3 = new JPanel();
-//        centroMCliFResSSPanel3.setLayout(new GridLayout(1, 1));
-//        centroMCliFResSubPanel.add(centroMCliFResSSPanel3, BorderLayout.WEST);
-//
-//        JPanel centroMCliFResSSPanel4 = new JPanel();
-//        centroMCliFResSSPanel4.setLayout(new FlowLayout());
-//        centroMCliFResSubPanel.add(centroMCliFResSSPanel4, BorderLayout.WEST);
-//
-//        JPanel centroMCliFResSSPanel5 = new JPanel();
-//        centroMCliFResSSPanel5.setLayout(new FlowLayout());
-//        centroMCliFResSubPanel.add(centroMCliFResSSPanel5, BorderLayout.WEST);
-//
-//        JPanel centroMCliFResSSPanel6 = new JPanel();
-//        centroMCliFResSSPanel6.setLayout(new FlowLayout());
-//        centroMCliFResSubPanel.add(centroMCliFResSSPanel6, BorderLayout.WEST);
-//
-//        JPanel centroMCliFResSSPanel7 = new JPanel();
-//        centroMCliFResSSPanel7.setLayout(new FlowLayout());
-//        centroMCliFResSubPanel.add(centroMCliFResSSPanel7, BorderLayout.WEST);
+        JPanel centroMCliFResSSPanel3 = new JPanel();
+        centroMCliFResSSPanel3.setLayout(new GridLayout(1, 1));
+        centroMCliFResSubPanel.add(centroMCliFResSSPanel3, BorderLayout.WEST);
 
-        centroMCliFResSSPanel.add(tipoResMCliFResLabel);
-        centroMCliFResSSPanel1.add(presencialMCliFResRButton);
-        centroMCliFResSSPanel1.add(takeAwayMCliFResRButton);
-        centroMCliFResSSPanel2.add(nomeResMCliFResLabel);
-        centroMCliFResSSPanel2.add(nomeResMCliFResText);
-
-//        centroMCliFResSSPanel3.add(diaMCliFResLabel);
-//        centroMCliFResSSPanel3.add(datePicker6);
-//
-//        centroMCliFResSSPanel3.add(horaMCliFResLabel);
-//        centroMCliFResSSPanel3.add(horaDeMCliFResLabel);
-//        centroMCliFResSSPanel3.add(horaDeMCliFResCBox);
-//        centroMCliFResSSPanel3.add(horaAteMCliFResLabel);
-//        centroMCliFResSSPanel3.add(horaAteMCliFResCBox);
-//        centroMCliFResSSPanel4.add(qtdePessoasMCliFResLabel);
-//
-//        centroMCliFResSSPanel4.add(qtdePessoasMCliFResCBox);
-//        centroMCliFResSSPanel7.add(msgMCliFResLabel);
-//        centroMCliFResSSPanel5.add(pratosMCliFResLabel);
-//        centroMCliFResSSPanel5.add(tabelaMCliFRes);
-//        centroMCliFResSSPanel6.add(qtdePratosMCliFResLabel);
-//        centroMCliFResSSPanel6.add(qtdePratosMCliFResCBox);
+        //todo ver como listar o restaurantes
+        centroMCliFResSSPanel1.add(nomeResMCliFResLabel);
+        centroMCliFResSSPanel1.add(nomeResMCliFResText);
+        centroMCliFResSSPanel2.add(tipoResMCliFResLabel);
+        centroMCliFResSSPanel3.add(presencialMCliFResRButton);
+        centroMCliFResSSPanel3.add(takeAwayMCliFResRButton);
 
         sulMCliFResSubPanel.setLayout(new FlowLayout());
         sulMCliFResSubPanel.add(voltarMCliFResButton);
-        sulMCliFResSubPanel.add(confirmarMCliFResButton);
 
         presencialMCliFResRButton.addActionListener(a -> {
             CardLayout cl = (CardLayout) contentor.getLayout();
@@ -1963,18 +1822,11 @@ public class Interface extends JFrame {
             this.setSize(LARGURA_PADRAO, ALTURA_PADRAO);
         });
 
-        //todo ver os encaminhamentos
-        confirmarMCliFResButton.addActionListener(e -> {
-            CardLayout cl = (CardLayout) contentor.getLayout();
-            cl.show(contentor, LOGIN_CARD);
-            this.setSize(500, 180);
-        });
     }
 
 
     //////MENU CLIENTE – FAZER RESERVA PRESENCIAL//////////
-    private void construirPanelMCliFazerResP(Interface janela, Container contentor, JPanel loginSuperPanel, JPanel MCliFazerResPSuperPanel) {
-
+    private void construirPanelMCliFazerResP(Interface janela, Container contentor, JPanel loginSuperPanel, JPanel mCliFazerResPSuperPanel) {
 
         /////SUBPAINEIS//////
         JPanel norteMCliFResPSubPanel = new JPanel();
@@ -1982,7 +1834,7 @@ public class Interface extends JFrame {
         JPanel centroMCliFResPSubPanel = new JPanel();
         JPanel sulMCliFResPSubPanel = new JPanel();
 
-        JLabel mCliTitFResLabel = new JLabel("FAZER RESERVAS PRESENCIAL");
+        JLabel mCliTitFResPLabel = new JLabel("FAZER RESERVAS PRESENCIAL");
         JLabel diaMCliFResPLabel = new JLabel("DIA");
         JLabel horaMCliFResPLabel = new JLabel("HORA");
         JLabel horaDeMCliFResPLabel = new JLabel("De");
@@ -1990,71 +1842,19 @@ public class Interface extends JFrame {
         JLabel qtdePessoasMCliFResPLabel = new JLabel("QUANTIDADE DE PESSOAS");
         JLabel msgMCliFResPLabel = new JLabel("Contatar diretamente o restaurante no caso de reservas para mais de 20 pessoas");
 
-        JComboBox horaDeMCliFResCBox = new JComboBox();
-        horaDeMCliFResSCBox.addItem("");
-        horaDeMCliFResSCBox.addItem("11h");
-        horaDeMCliFResSCBox.addItem("11h30");
-        horaDeMCliFResSCBox.addItem("12h");
-        horaDeMCliFResSCBox.addItem("12h30");
-        horaDeMCliFResSCBox.addItem("13h");
-        horaDeMCliFResCBox.addItem("13h30");
-        horaDeMCliFResCBox.addItem("14h");
+        String [] horaDeMCliFRes = {"","11h","11h30","12h","12h30","13h","13h30","14h","14h30","15h","15h30","19h","19h30","20h","20h30","21h","21h30","22h","22h30"};
+        JComboBox arrayhoraDeMCliFResPCBox = new JComboBox(horaDeMCliFRes);
 
+        String [] horaAteMCliFRes = {"","12h","12h30","13h","13h30","14h","14h30","15h","15h30","19h","19h30","20h","20h30","21h","21h30","22h","22h30"};
+        JComboBox arrayhoraAteMCliFResPCBox = new JComboBox(horaAteMCliFRes);
 
-        JComboBox horaAteMCliFResSPPCBox = new JComboBox();
-        horaAteMCliFResCBox.addItem("");
-        horaAteMCliFResCBox.addItem("12h");
-        horaAteMCliFResCBox.addItem("12h30");
-        horaAteMCliFResCBox.addItem("13h");
-        horaAteMCliFResCBox.addItem("13h30");
-        horaAteMCliFResCBox.addItem("14h");
-        horaAteMCliFResCBox.addItem("14h30");
-        horaAteMCliFResCBox.addItem("15h");
-        horaAteMCliFResCBox.addItem("15h30");
+        String [] qtdePessoasMCliFRes = {"","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20"};
+        JComboBox arrayQtdePessoasMCliFResPCBox = new JComboBox(qtdePessoasMCliFRes);
 
-
-        JComboBox qtdePessoasMCliFResCBox = new JComboBox();
-        qtdePessoasMCliFResCBox.addItem("");
-        qtdePessoasMCliFResCBox.addItem("1");
-        qtdePessoasMCliFResCBox.addItem("2");
-        qtdePessoasMCliFResCBox.addItem("3");
-        qtdePessoasMCliFResCBox.addItem("4");
-        qtdePessoasMCliFResCBox.addItem("5");
-        qtdePessoasMCliFResCBox.addItem("6");
-        qtdePessoasMCliFResCBox.addItem("7");
-        qtdePessoasMCliFResCBox.addItem("8");
-        qtdePessoasMCliFResCBox.addItem("9");
-        qtdePessoasMCliFResCBox.addItem("10");
-        qtdePessoasMCliFResCBox.addItem("11");
-        qtdePessoasMCliFResCBox.addItem("12");
-        qtdePessoasMCliFResCBox.addItem("13");
-        qtdePessoasMCliFResCBox.addItem("14");
-        qtdePessoasMCliFResCBox.addItem("15");
-        qtdePessoasMCliFResCBox.addItem("16");
-        qtdePessoasMCliFResCBox.addItem("17");
-        qtdePessoasMCliFResCBox.addItem("18");
-        qtdePessoasMCliFResCBox.addItem("19");
-        qtdePessoasMCliFResCBox.addItem("20");
-
-
-//todo possibilitar que o prato possa ser selecionado
-        String[] nomeColunasMCliFResSPP = new String[]{
-                "NOME", "DESCRIÇÃO", "PREÇO", "TIPO"
-        };
-
-        Object[][] dados = new Object[][]{
-                {"NOME", "DESCRIÇÃO", "PREÇO", "TIPO"},
-                {"Sardinha", "Assada", "15.0", "Carta"},
-                {"Peru", "Ensopado", "15.0", "Prato do Dia"},
-                {"Bifana", "Frita", "15.0", "Carta"},
-
-        };
-        //criação da tabela
-        JTable tabelaMCliFResSPP = new JTable(dados, nomeColunasMCliFResSPP);
-
-        JButton ptEnMCliFResSPPButton = new JButton("PT/EN");
-        JButton voltarMCliFResSPPButton = new JButton("MENU CLIENTE");
-        JButton confirmarMCliFResSPPButton = new JButton("OK");
+        JButton ptEnMCliFResPButton = new JButton("PT/EN");
+        JButton voltarMCliFResPButton = new JButton("MENU CLIENTE");
+        JButton confirmarMCliFResPButton = new JButton("OK");
+        JButton retornarMCliFResPButton = new JButton("VOLTAR");
 
         //Adição do calendário
         UtilDateModel model1 = new UtilDateModel();
@@ -2066,96 +1866,67 @@ public class Interface extends JFrame {
         JDatePanelImpl datePanel5 = new JDatePanelImpl(model6, p);
         JDatePickerImpl datePicker6 = new JDatePickerImpl(datePanel5, new DateLabelFormatter());
 
-
-        MCliFazerResPSuperPanel.add(norteMCliFResSPPSubPanel, "North");
-        MCliFazerResPSuperPanel.add(centroMCliFResSPPSubPanel, "Center");
-        MCliFazerResPSuperPanel.add(sulMCliFResSPPSubPanel, "South");
+        mCliFazerResPSuperPanel.add(norteMCliFResPSubPanel, "North");
+        mCliFazerResPSuperPanel.add(centroMCliFResPSubPanel, "Center");
+        mCliFazerResPSuperPanel.add(sulMCliFResPSubPanel, "South");
 
         JPanel norteMCliFResSPPSSPanel = new JPanel();
         norteMCliFResSPPSSPanel.setLayout(new FlowLayout());
-        norteMCliFResSPPSSPanel.add(mCliTitFResSPLabel);
-        norteMCliFResSPPSubPanel.add(norteMCliFResSPPSSPanel, BorderLayout.CENTER);
-        norteMCliFResSPPSubPanel.add(ptEnMCliFResSPPButton, BorderLayout.EAST);
+        norteMCliFResSPPSSPanel.add(mCliTitFResPLabel);
+        norteMCliFResPSubPanel.add(norteMCliFResSPPSSPanel, BorderLayout.CENTER);
+        norteMCliFResPSubPanel.add(ptEnMCliFResPButton, BorderLayout.EAST);
 
-        JPanel centroMCliFResSPPSSPanel = new JPanel();
-        centroMCliFResSPPSSPanel.setLayout(new FlowLayout());
-        centroMCliFResSPPSubPanel.add(centroMCliFResSPPSSPanel, BorderLayout.WEST);
+        JPanel centroMCliFResPSSPanel = new JPanel();
+        centroMCliFResPSSPanel.setLayout(new FlowLayout());
+        centroMCliFResPSubPanel.add(centroMCliFResPSSPanel, BorderLayout.WEST);
 
-        JPanel centroMCliFResSPPSSPanel1 = new JPanel();
-        centroMCliFResSPPSSPanel1.setLayout(new FlowLayout());
-        centroMCliFResSPPSubPanel.add(centroMCliFResSPPSSPanel1, BorderLayout.WEST);
+        JPanel centroMCliFResPSSPanel1 = new JPanel();
+        centroMCliFResPSSPanel1.setLayout(new FlowLayout());
+        centroMCliFResPSubPanel.add(centroMCliFResPSSPanel1, BorderLayout.WEST);
 
-        JPanel centroMCliFResSPPSSPanel2 = new JPanel();
-        centroMCliFResSPPSSPanel2.setLayout(new FlowLayout());
-        centroMCliFResSPPSubPanel.add(centroMCliFResSPPSSPanel2, BorderLayout.WEST);
+        JPanel centroMCliFResPSSPanel2 = new JPanel();
+        centroMCliFResPSSPanel2.setLayout(new FlowLayout());
+        centroMCliFResPSubPanel.add(centroMCliFResPSSPanel2, BorderLayout.WEST);
 
-        JPanel centroMCliFResSPPSSPanel3 = new JPanel();
-        centroMCliFResSPPSSPanel3.setLayout(new GridLayout(1, 1));
-        centroMCliFResSPPSubPanel.add(centroMCliFResSPPSSPanel3, BorderLayout.WEST);
+        JPanel centroMCliFResPSSPanel3 = new JPanel();
+        centroMCliFResPSSPanel3.setLayout(new GridLayout(1, 1));
+        centroMCliFResPSubPanel.add(centroMCliFResPSSPanel3, BorderLayout.WEST);
 
-        JPanel centroMCliFResSPPSSPanel4 = new JPanel();
-        centroMCliFResSPPSSPanel4.setLayout(new FlowLayout());
-        centroMCliFResSPPSubPanel.add(centroMCliFResSPPSSPanel4, BorderLayout.WEST);
+        JPanel centroMCliFResPSSPanel4 = new JPanel();
+        centroMCliFResPSSPanel4.setLayout(new FlowLayout());
+        centroMCliFResPSubPanel.add(centroMCliFResPSSPanel4, BorderLayout.WEST);
 
-        JPanel centroMCliFResSPPSSPanel5 = new JPanel();
-        centroMCliFResSPPSSPanel5.setLayout(new FlowLayout());
-        centroMCliFResSPPSubPanel.add(centroMCliFResSPPSSPanel5, BorderLayout.WEST);
+        centroMCliFResPSSPanel.add(diaMCliFResPLabel);
+        centroMCliFResPSSPanel.add(datePicker6);
+        centroMCliFResPSSPanel1.add(horaMCliFResPLabel);
+        centroMCliFResPSSPanel2.add(horaDeMCliFResPLabel);
+        centroMCliFResPSSPanel2.add(arrayhoraDeMCliFResPCBox);
+        centroMCliFResPSSPanel2.add(horaAteMCliFResPLabel);
+        centroMCliFResPSSPanel2.add(arrayhoraAteMCliFResPCBox);
 
-        JPanel centroMCliFResSPPSSPanel6 = new JPanel();
-        centroMCliFResSPPSSPanel6.setLayout(new FlowLayout());
-        centroMCliFResSPPSubPanel.add(centroMCliFResSPPSSPanel6, BorderLayout.WEST);
-
-        JPanel centroMCliFResSPPSSPanel7 = new JPanel();
-        centroMCliFResSPPSSPanel7.setLayout(new FlowLayout());
-        centroMCliFResSPPSubPanel.add(centroMCliFResSPPSSPanel7, BorderLayout.WEST);
-
-
-        JLabel = new JLabel("Até");
-        JLabel qtdePessoasMCliFResSPPLabel = new JLabel("QUANTIDADE DE PESSOAS");
-        JLabel msgMCliFResSPPLabel = new JLabel("Contatar diretamente o restaurante no caso de reservas para mais de 20 pessoas");
-
-        JComboBox
-                horaAteMCliFResCBox
-        JComboBox qtdePessoasMCliFResCBox
-
-
-        centroMCliFResSPPSSPanel.add(diaMCliFResPLabel);
-        centroMCliFResSPPSSPanel1.add(datePicker6);
-        centroMCliFResSPPSSPanel1.add(horaMCliFResPLabel);
-        centroMCliFResSPPSSPanel2.add(horaDeMCliFResPLabel);
-        centroMCliFResSPPSSPanel2.add(horaDeMCliFResPCBox);
-        centroMCliFResSPPSSPanel2.add(horaAteMCliFResPLabel);
-        centroMCliFResSPPSSPanel2.add(horaAteMCliFResPCBox);
-
-
-        centroMCliFResSPPSSPanel3.add(horaMCliFResPLabel);
-        centroMCliFResSPPSSPanel3.add(horaDeMCliFResPLabel);
-        centroMCliFResSPPSSPanel3.add(horaDeMCliFResPCBox);
-        centroMCliFResSPPSSPanel3.add(horaAteMCliFResPLabel);
-        centroMCliFResSPPSSPanel3.add(horaAteMCliFResPCBox);
-
-        centroMCliFResSPPSSPanel3.add(tabelaMCliFResP);
-
-
-        centroMCliFResSPPSSPanel4.add(qtdePessoasMCliFResPLabel);
-
-        centroMCliFResPSSPanelanel4.add(qtdePessoasMCliFResPCBox);
-        centroMCliFResPSSPanelanel3.add(msgMCliFResPLabel);
-
+        centroMCliFResPSSPanel3.add(qtdePessoasMCliFResPLabel);
+        centroMCliFResPSSPanel3.add(arrayQtdePessoasMCliFResPCBox);
+        centroMCliFResPSSPanel4.add(msgMCliFResPLabel);
 
         sulMCliFResPSubPanel.setLayout(new FlowLayout());
         sulMCliFResPSubPanel.add(voltarMCliFResPButton);
+        sulMCliFResPSubPanel.add(retornarMCliFResPButton);
         sulMCliFResPSubPanel.add(confirmarMCliFResPButton);
-
 
         voltarMCliFResPButton.addActionListener(a -> {
             CardLayout cl = (CardLayout) contentor.getLayout();
-            cl.show(contentor, MENURESTAURANTE_CARD);
+            cl.show(contentor, MENUCLIENTE_CARD);
+            this.setSize(LARGURA_PADRAO, ALTURA_PADRAO);
+        });
+
+        retornarMCliFResPButton.addActionListener(a -> {
+            CardLayout cl = (CardLayout) contentor.getLayout();
+            cl.show(contentor, MCLIFAZERRES_CARD);
             this.setSize(LARGURA_PADRAO, ALTURA_PADRAO);
         });
 
         //todo ver os encaminhamentos
-        confirmarMCliFResSPPButton.addActionListener(e -> {
+        confirmarMCliFResPButton.addActionListener(e -> {
             CardLayout cl = (CardLayout) contentor.getLayout();
             cl.show(contentor, LOGIN_CARD);
             this.setSize(500, 180);
@@ -2174,67 +1945,32 @@ public class Interface extends JFrame {
 
         JLabel mCliTitFResTALabel = new JLabel("FAZER RESERVAS TAKE-AWAY");
         JLabel horaMCliFResTALabel = new JLabel("HORA");
-        JLabel horaDeMCliFResTALabel = new JLabel("De");
-        JLabel horaAteMCliFResTALabel = new JLabel("Até");
-
+        JLabel idMCliFResTALabel = new JLabel("ID");
         JLabel qtdePratosMCliFResTALabel = new JLabel("QUANTIDADE");
         JLabel pratosMCliFResTALabel = new JLabel("PRATOS");
 
-        JComboBox horaDeMCliFResTACBox = new JComboBox();
-        horaDeMCliFResTACBox.addItem("");
-        horaDeMCliFResTACBox.addItem("11h");
-        horaDeMCliFResTACBox.addItem("11h30");
-        horaDeMCliFResTACBox.addItem("12h");
-        horaDeMCliFResTACBox.addItem("12h30");
-        horaDeMCliFResTACBox.addItem("13h");
-        horaDeMCliFResTACBox.addItem("13h30");
-        horaDeMCliFResTACBox.addItem("14h");
+        String [] horasMCliFResTA = {"","11h30","12h","12h30","13h","13h30","14h","14h30","15h","15h30","19h","19h30","20h","20h30","21h","21h30","22h","22h30"};
+        JComboBox arrayhorasMCliFResTACBox = new JComboBox(horasMCliFResTA);
 
-        JComboBox horaAteMCliFResTACBox = new JComboBox();
-        horaAteMCliFResTACBox.addItem("");
-        horaAteMCliFResTACBox.addItem("12h");
-        horaAteMCliFResTACBox.addItem("12h30");
-        horaAteMCliFResTACBox.addItem("13h");
-        horaAteMCliFResTACBox.addItem("13h30");
-        horaAteMCliFResTACBox.addItem("14h");
-        horaAteMCliFResTACBox.addItem("14h30");
-        horaAteMCliFResTACBox.addItem("15h");
-        horaAteMCliFResTACBox.addItem("15h30");
+        String [] idMCliFResTA = {"","1","2","3","4","5","6","7","8","9","10"};
+        JComboBox arrayidMCliFResTACBox = new JComboBox(idMCliFResTA);
 
-        JComboBox qtdePratosMCliFResTACBox = new JComboBox();
-        qtdePratosMCliFResTACBox.addItem("");
-        qtdePratosMCliFResTACBox.addItem("1");
-        qtdePratosMCliFResTACBox.addItem("2");
-        qtdePratosMCliFResTACBox.addItem("3");
-        qtdePratosMCliFResTACBox.addItem("4");
-        qtdePratosMCliFResTACBox.addItem("5");
-        qtdePratosMCliFResTACBox.addItem("6");
-        qtdePratosMCliFResTACBox.addItem("7");
-        qtdePratosMCliFResTACBox.addItem("8");
-        qtdePratosMCliFResTACBox.addItem("9");
-        qtdePratosMCliFResTACBox.addItem("10");
-        qtdePratosMCliFResTACBox.addItem("11");
-        qtdePratosMCliFResTACBox.addItem("12");
-        qtdePratosMCliFResTACBox.addItem("13");
-        qtdePratosMCliFResTACBox.addItem("14");
-        qtdePratosMCliFResTACBox.addItem("15");
-        qtdePratosMCliFResTACBox.addItem("16");
-        qtdePratosMCliFResTACBox.addItem("17");
-        qtdePratosMCliFResTACBox.addItem("18");
-        qtdePratosMCliFResTACBox.addItem("19");
-        qtdePratosMCliFResTACBox.addItem("20");
-
+        String [] qtdePratosMCliFResTA = {"","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20"};
+        JComboBox arrayqtdePratosMCliFResTACBox = new JComboBox(qtdePratosMCliFResTA);
 
 //todo possibilitar que o prato possa ser selecionado
         String[] nomeColunasMCliFResTA = new String[]{
-                "NOME", "DESCRIÇÃO", "PREÇO", "TIPO"
+                "ID", "NOME", "DESCRIÇÃO", "PREÇO", "TIPO"
         };
 
         Object[][] dados = new Object[][]{
-                {"NOME", "DESCRIÇÃO", "PREÇO", "TIPO"},
-                {"Sardinha", "Assada", "15.0", "Carta"},
-                {"Peru", "Ensopado", "15.0", "Prato do Dia"},
-                {"Bifana", "Frita", "15.0", "Carta"},
+                {"ID", "NOME", "DESCRIÇÃO", "PREÇO", "TIPO"},
+                {1,"Sardinha", "Assada", "15.0", "Carta"},
+                {2,"Peru", "Ensopado", "15.0", "Prato do Dia"},
+                {3,"Bifana", "Frita", "15.0", "Carta"},
+                {4,"Sardinha", "Assada", "15.0", "Carta"},
+                {5,"Peru", "Ensopado", "15.0", "Prato do Dia"},
+                {6,"Bifana", "Frita", "15.0", "Carta"},
 
         };
         //criação da tabela
@@ -2242,7 +1978,9 @@ public class Interface extends JFrame {
 
         JButton ptEnMCliFResTAButton = new JButton("PT/EN");
         JButton voltarMCliFResTAButton = new JButton("MENU CLIENTE");
-        JButton confirmarMCliFResTAButton = new JButton("OK");
+        JButton adicionarMCliFResTAButton = new JButton("ADICIONAR");
+        JButton retornarMCliFResButton = new JButton("VOLTAR");
+        JButton finalizarMCliFResTAButton = new JButton("FINALIZAR");
 
         mCliFazerResTASuperPanel.add(norteMCliFResTASubPanel, "North");
         mCliFazerResTASuperPanel.add(centroMCliFResTASubPanel, "Center");
@@ -2267,34 +2005,51 @@ public class Interface extends JFrame {
         centroMCliFResTASubPanel.add(centroMCliFResTASSPanel2, BorderLayout.WEST);
 
         JPanel centroMCliFResTASSPanel3 = new JPanel();
-        centroMCliFResTASSPanel3.setLayout(new GridLayout(1, 1));
-        centroMCliFResTASubPanel.add(centroMCliFResTASSPanel3, BorderLayout.WEST);
+        centroMCliFResTASSPanel3.setLayout(new FlowLayout());
+        centroMCliFResTASubPanel.add(centroMCliFResTASSPanel3, BorderLayout.CENTER);
+
+        JPanel centroMCliFResTASSPanel4 = new JPanel();
+        centroMCliFResTASSPanel4.setLayout(new FlowLayout());
+        centroMCliFResTASubPanel.add(centroMCliFResTASSPanel4, BorderLayout.WEST);
 
         centroMCliFResTASSPanel.add(horaMCliFResTALabel);
-        centroMCliFResTASSPanel.add(horaDeMCliFResTALabel);
-        centroMCliFResTASSPanel.add(horaDeMCliFResTACBox);
-        centroMCliFResTASSPanel.add(horaAteMCliFResTALabel);
-        centroMCliFResTASSPanel.add(horaAteMCliFResTACBox);
-        centroMCliFResTASSPanel1.add(pratosMCliFResTALabel);
-        centroMCliFResTASSPanel1.add(tabelaMCliFResTA);
-        centroMCliFResTASSPanel2.add(qtdePratosMCliFResTALabel);
-        centroMCliFResTASSPanel2.add(qtdePratosMCliFResTACBox);
+        centroMCliFResTASSPanel1.add(arrayhorasMCliFResTACBox);
+        centroMCliFResTASSPanel3.add(pratosMCliFResTALabel);
+        centroMCliFResTASSPanel3.add(tabelaMCliFResTA);
+        centroMCliFResTASSPanel4.add(idMCliFResTALabel);
+        centroMCliFResTASSPanel4.add(arrayidMCliFResTACBox);
+        centroMCliFResTASSPanel4.add(qtdePratosMCliFResTALabel);
+        centroMCliFResTASSPanel4.add(arrayqtdePratosMCliFResTACBox);
 
         sulMCliFResTASubPanel.setLayout(new FlowLayout());
         sulMCliFResTASubPanel.add(voltarMCliFResTAButton);
-        sulMCliFResTASubPanel.add(confirmarMCliFResTAButton);
+        sulMCliFResTASubPanel.add(retornarMCliFResButton);
+        sulMCliFResTASubPanel.add(adicionarMCliFResTAButton);
+        sulMCliFResTASubPanel.add(finalizarMCliFResTAButton);
 
 
         voltarMCliFResTAButton.addActionListener(a -> {
             CardLayout cl = (CardLayout) contentor.getLayout();
-            cl.show(contentor, MENURESTAURANTE_CARD);
+            cl.show(contentor, MENUCLIENTE_CARD);
+            this.setSize(LARGURA_PADRAO, ALTURA_PADRAO);
+        });
+
+        retornarMCliFResButton.addActionListener(a -> {
+            CardLayout cl = (CardLayout) contentor.getLayout();
+            cl.show(contentor, MCLIFAZERRES_CARD);
+            this.setSize(LARGURA_PADRAO, ALTURA_PADRAO);
+        });
+        //todo fazer nova página com valor final (botoes de finalizar, editar e remover com quantidade)
+        finalizarMCliFResTAButton.addActionListener(a -> {
+            CardLayout cl = (CardLayout) contentor.getLayout();
+            cl.show(contentor, MCLIFAZERRES_CARD);
             this.setSize(LARGURA_PADRAO, ALTURA_PADRAO);
         });
 
         //todo ver os encaminhamentos
-        confirmarMCliFResTAButton.addActionListener(e -> {
+        adicionarMCliFResTAButton.addActionListener(e -> {
             CardLayout cl = (CardLayout) contentor.getLayout();
-            cl.show(contentor, LOGIN_CARD);
+            cl.show(contentor, MCLIFAZERRES_CARD);
             this.setSize(500, 180);
         });
 
