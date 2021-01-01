@@ -6,7 +6,7 @@ import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import java.text.ParseException;
 import java.util.Enumeration;
 import java.util.Properties;
@@ -42,6 +42,8 @@ public class Interface extends JFrame {
     private static final int ALTURA_LOGIN = 180;
     private static final int LARGURA_PADRAO = 500;
     private static final int ALTURA_PADRAO = 300;
+    private boolean passwordValido;
+    private boolean confirmarPasswordValido;
 
 
     public Interface() {
@@ -1609,7 +1611,6 @@ public class Interface extends JFrame {
         JDatePanelImpl datePanel2 = new JDatePanelImpl(model3, p);
         JDatePickerImpl datePicker3 = new JDatePickerImpl(datePanel2, new DateLabelFormatter());
 
-
         mCliRestSuperPanel.add(norteMCliRestSubPanel, "North");
         mCliRestSuperPanel.add(centroMCliRestSubPanel, "Center");
         mCliRestSuperPanel.add(sulMCliRestSubPanel, "South");
@@ -1825,6 +1826,8 @@ public class Interface extends JFrame {
     ////////////////////MENU CLIENTE - ACTUALIZAR DADOS /////////////////////////
     private void construirPanelMCliAtDados(Interface janela, Container contentor, JPanel loginSuperPanel, JPanel mCliAtDadosSuperPanel) {
 
+        passwordValido = false;
+        confirmarPasswordValido = false;
 
         /////SUBPAINEIS//////
         JPanel norteAtDadosMCliSubPanel = new JPanel();
@@ -1851,11 +1854,54 @@ public class Interface extends JFrame {
         JTextField usernameCliMCliText = new JTextField(20);
 
         JPasswordField passwordCliMCliField = new JPasswordField(20);
-        JPasswordField confirmarPassawordCliMCliField = new JPasswordField(20);
+        passwordCliMCliField.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                passwordValido = true;
+            }
 
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (passwordCliMCliField.getPassword().length<6) {
+                    passwordValido = false;
+                }
+
+            }
+        });
+        JPasswordField confirmarPassawordCliMCliField = new JPasswordField(20);
+        confirmarPassawordCliMCliField.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                confirmarPasswordValido = true;
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (!passwordCliMCliField.getPassword().equals(confirmarPassawordCliMCliField.getPassword())) {
+                    confirmarPasswordValido = false;
+                }
+
+            }
+        });
         JButton ptEnAtDadosMCliButton = new JButton("PT/EN");
         JButton voltarCliMCliButton = new JButton("MENU CLIENTE");
         JButton actualizarCliMCliButton = new JButton("ACTUALIZAR");
+        actualizarCliMCliButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(!passwordValido){
+                    JOptionPane.showMessageDialog(((Component) e.getSource()).getParent(),"Password Inválido!");
+                    passwordCliMCliField.requestFocus();
+                    return;
+                }
+                if(!confirmarPasswordValido) {
+                    JOptionPane.showMessageDialog(((Component) e.getSource()).getParent(), "Password Inválido!");
+                    confirmarPassawordCliMCliField.requestFocus();
+                    return;
+                }
+
+            }
+        });
 
         mCliAtDadosSuperPanel.add(norteAtDadosMCliSubPanel, "North");
         mCliAtDadosSuperPanel.add(centroAtDadosMCliSubPanel, "Center");
@@ -2336,4 +2382,5 @@ public class Interface extends JFrame {
 
         this.setVisible(true);
     }
+
 }
